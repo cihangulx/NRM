@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Anasayfa" />
+
+
+        <item
+            android:id="@+id/action_add_user"
+            android:icon="@drawable/ic_person_add_black_24dp"
+            android:title="Kullanıcı Ekle" />
+        <item
+            android:id="@+id/action_list_request"
+            android:icon="@drawable/ic_list_black_24dp"
+            android:title="Taleplerim" />
+        <item
+            android:id="@+id/action_add_department"
+            android:icon="@drawable/ic_folder_shared_black_24dp"
+            android:title="Departman Ekle" />
+        <item
+            android:id="@+id/action_add_unvan"
+            android:icon="@drawable/ic_assignment_ind_black_24dp"
+            android:title="Ünvan Ekle" />
+        <item
+            android:id="@+id/action_add_request"
+            android:icon="@drawable/ic_add_circle_outline_black_24dp"
+            android:title="Talep Oluştur" />
+        <item
+            android:id="@+id/action_add_project"
+            android:icon="@drawable/ic_folder_black_24dp"
+            android:title="Proje Oluştur" />
+
+
+
+    </group>
+
+    <item android:title="İletişim">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Mesaj" />
+        </menu>
+    </item>
+
+</menu>
