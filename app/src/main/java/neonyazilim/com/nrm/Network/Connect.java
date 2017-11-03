@@ -3,6 +3,7 @@ package neonyazilim.com.nrm.Network;
 import java.util.List;
 
 import neonyazilim.com.nrm.Models.Departman;
+import neonyazilim.com.nrm.Models.Gorev;
 import neonyazilim.com.nrm.Models.Kullanici;
 import neonyazilim.com.nrm.Models.Proje;
 import neonyazilim.com.nrm.Models.RequestBody;
@@ -89,6 +90,10 @@ public interface Connect {
 
     @POST("talepEkle"+S.publickey)
     Call<Talep> talepGonder(@Body Talep talep);
+
+    @POST("gorevEkle"+S.publickey)
+    Call<Gorev> gorevEkle(@Body Gorev gorev);
+
 
     @POST("getUser"+S.publickey)
     Call<List<Kullanici>> getUser(@Body RequestBody departman);
