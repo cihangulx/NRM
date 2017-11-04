@@ -25,6 +25,10 @@
             android:icon="@drawable/ic_assignment_ind_black_24dp"
             android:title="Ünvan Ekle" />
         <item
+            android:id="@+id/action_add_gorev"
+            android:icon="@drawable/ic_assignment_ind_black_24dp"
+            android:title="Görev Ekle" />
+        <item
             android:id="@+id/action_add_request"
             android:icon="@drawable/ic_add_circle_outline_black_24dp"
             android:title="Talep Oluştur" />

@@ -6,7 +6,7 @@ package neonyazilim.com.nrm.Models;
 
 public class Gorev {
 
-    private String id;
+    private String _id;
     private String baslik;
     private String aciklama;
     private String gonderen;// Gönderen id
@@ -16,8 +16,10 @@ public class Gorev {
     private String [] adimlar;
     private int progress;
 
+    public Gorev() {
+    }
     public Gorev(String id, String baslik, String aciklama, String gonderen, String[] gorevli, String tarih, String token, int progress) {
-        this.id = id;
+        this._id = id;
         this.baslik = baslik;
         this.aciklama = aciklama;
         this.gonderen = gonderen;
@@ -27,8 +29,7 @@ public class Gorev {
         this.progress = progress;
     }
 
-    public Gorev() {
-    }
+
 
 
     public String[] getAdimlar() {
@@ -40,11 +41,11 @@ public class Gorev {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getBaslik() {

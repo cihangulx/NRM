@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import neonyazilim.com.nrm.Activitys.DepartmanEkle;
+import neonyazilim.com.nrm.Activitys.GorevEkle;
 import neonyazilim.com.nrm.Activitys.KullaniciEkle;
 import neonyazilim.com.nrm.Activitys.LoginActivity;
 import neonyazilim.com.nrm.Activitys.ProjeEkle;
@@ -161,6 +162,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, DepartmanEkle.class));
         } else if (id == R.id.action_add_unvan) {
             startActivity(new Intent(this, UnvanEkle.class));
+        } else if (id == R.id.action_add_gorev) {
+            startActivity(new Intent(this, GorevEkle.class));
         } else if (id == R.id.nav_send) {
 
         }
