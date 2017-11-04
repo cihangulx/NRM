@@ -54,9 +54,13 @@ Activity activity;
 
         Adim adim = adimList.get(position);
 
+        bitti.setChecked(adim.isBitti());
+
+
+
         baslik.setText(adim.getBaslik());
         bitti.setChecked(adim.isBitti());
 
-        return null;
+        return view;
     }
 }

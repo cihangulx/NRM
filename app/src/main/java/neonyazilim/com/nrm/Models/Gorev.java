@@ -14,6 +14,7 @@ public class Gorev {
     private String tarih;
     private String token;
     private String [] adimlar;
+    private String proje;
     private int progress;
 
     public Gorev() {
@@ -30,7 +31,13 @@ public class Gorev {
     }
 
 
+    public String getProje() {
+        return proje;
+    }
 
+    public void setProje(String proje) {
+        this.proje = proje;
+    }
 
     public String[] getAdimlar() {
         return adimlar;

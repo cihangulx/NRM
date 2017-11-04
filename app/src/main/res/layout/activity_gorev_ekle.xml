@@ -96,9 +96,9 @@
 
                         <Spinner
                             android:id="@+id/sp_gorevli"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical" />
+                            android:layout_weight="1" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -119,10 +119,10 @@
                 </LinearLayout>
 
                 <ListView
-                    android:id="@+id/sorumlu_listview"
+                    android:id="@+id/gorevli_listview"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@color/White"
+                    android:background="@drawable/list_view_back"
                     android:nestedScrollingEnabled="true"
                     android:visibility="gone" />
 
@@ -149,15 +149,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Adım Ekle:"
-                        android:textColor="@color/colorAccent" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,15 +186,16 @@
 
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/adim_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/White"
-                    android:nestedScrollingEnabled="true"
-                    android:visibility="gone" />
-
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/adim_listview"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/list_view_back"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <Button

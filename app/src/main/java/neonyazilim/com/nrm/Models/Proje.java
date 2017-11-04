@@ -6,7 +6,7 @@ package neonyazilim.com.nrm.Models;
 
 public class Proje {
 
-    private String id;
+    private String _id;
     private String baslik;
     private String aciklama;
     private String gonderen;// Gönderen id
@@ -24,7 +24,7 @@ public class Proje {
     }
 
     public Proje(String id, String baslik, String aciklama, String gonderen, String[] gorevler, String[] gorevliler, String tarih, String[] sorumlular, String token, int progress, String[] departmanlar) {
-        this.id = id;
+        this._id = id;
         this.baslik = baslik;
         this.aciklama = aciklama;
         this.gonderen = gonderen;
@@ -38,11 +38,11 @@ public class Proje {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getBaslik() {

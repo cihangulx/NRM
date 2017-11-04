@@ -17,12 +17,12 @@
 
         <LinearLayout
 
-            android:elevation="5dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="5dp"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/t_baslik"
@@ -54,8 +54,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
             android:layout_margin="5dp"
+            android:elevation="4dp"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -82,17 +82,35 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/sp_departman"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                     />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/add_departman"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/ic_add_circle" />
+                    <Spinner
+                        android:background="@drawable/ic_spinner_back"
+                        android:id="@+id/sp_departman"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_margin="5dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/add_departman"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/ic_add_circle" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -102,15 +120,16 @@
             android:id="@+id/departman_listview"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/list_view_back"
             android:nestedScrollingEnabled="true"
             android:visibility="gone" />
 
         <LinearLayout
-            android:elevation="5dp"
-            android:layout_margin="5dp"
-            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:elevation="5dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -137,37 +156,54 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/sp_sorumlu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/bt_sorumlu_ekle"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:background="@drawable/ic_add_circle" />
+                        <Spinner
+                            android:id="@+id/sp_sorumlu"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_spinner_back" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_margin="5dp"
+                            android:id="@+id/bt_sorumlu_ekle"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_add_circle" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/sorumlu_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/White"
-                    android:nestedScrollingEnabled="true"
-                    android:visibility="gone" />
-
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/sorumlu_listview"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/list_view_back"
+                android:nestedScrollingEnabled="true"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <Button

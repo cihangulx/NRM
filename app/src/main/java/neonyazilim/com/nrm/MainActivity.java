@@ -162,8 +162,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, DepartmanEkle.class));
         } else if (id == R.id.action_add_unvan) {
             startActivity(new Intent(this, UnvanEkle.class));
-        } else if (id == R.id.action_add_gorev) {
-            startActivity(new Intent(this, GorevEkle.class));
         } else if (id == R.id.nav_send) {
 
         }

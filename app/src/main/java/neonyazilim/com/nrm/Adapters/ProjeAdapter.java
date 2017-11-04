@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 import neonyazilim.com.nrm.Activitys.ProjeDetay;
@@ -39,7 +41,7 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
 
     @Override
     public void onBindViewHolder(ProjeViewHolder holder, int position) {
-        Proje proje = projeList.get(position);
+        final Proje proje = projeList.get(position);
 
         holder.progress.setText("%" + proje.getProgress());
         holder.proje_baslik.setText(proje.getBaslik());
@@ -47,25 +49,33 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
         holder.proje_tarih.setText(proje.getTarih());
 
 
-        if (proje.getProgress()>39){
+        if (proje.getProgress() > 39) {
             holder.progress.setTextColor(Color.parseColor("#4CAF50"));
-        }else if (proje.getProgress()<21){
+        } else if (proje.getProgress() < 21) {
             holder.progress.setTextColor(Color.RED);
-        }else if (proje.getProgress()==30){
+        } else if (proje.getProgress() == 30) {
             holder.progress.setTextColor(Color.parseColor("#FF9800"));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.startActivity(new Intent(activity, ProjeDetay.class));
+                Gson gson = new Gson();
+                String projeString = gson.toJson(proje);
+                Intent intent = new Intent(activity, ProjeDetay.class);
+                intent.putExtra("proje", projeString);
+                activity.startActivity(intent);
+
             }
         });
         holder.progress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.startActivity(new Intent(activity, ProjeDetay.class));
-
+                Gson gson = new Gson();
+                String projeString = gson.toJson(proje);
+                Intent intent = new Intent(activity, ProjeDetay.class);
+                intent.putExtra("proje", projeString);
+                activity.startActivity(intent);
             }
         });
     }

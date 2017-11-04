@@ -21,6 +21,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import neonyazilim.com.nrm.Adapters.DepartmanAdapter;
@@ -262,6 +263,7 @@ public class ProjeEkle extends AppCompatActivity {
         proje.setToken(S.userToken);
         proje.setDepartmanlar(departmanList);
         proje.setSorumlular(sorumluList);
+        proje.setTarih(new Date().toString());
         Call<Proje> call = Db.getConnect().sendProject(proje);
         call.enqueue(new Callback<Proje>() {
             @Override

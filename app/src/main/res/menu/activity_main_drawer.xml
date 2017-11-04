@@ -6,8 +6,6 @@
             android:id="@+id/action_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Anasayfa" />
-
-
         <item
             android:id="@+id/action_add_user"
             android:icon="@drawable/ic_person_add_black_24dp"
@@ -24,10 +22,7 @@
             android:id="@+id/action_add_unvan"
             android:icon="@drawable/ic_assignment_ind_black_24dp"
             android:title="Ünvan Ekle" />
-        <item
-            android:id="@+id/action_add_gorev"
-            android:icon="@drawable/ic_assignment_ind_black_24dp"
-            android:title="Görev Ekle" />
+
         <item
             android:id="@+id/action_add_request"
             android:icon="@drawable/ic_add_circle_outline_black_24dp"
@@ -36,8 +31,6 @@
             android:id="@+id/action_add_project"
             android:icon="@drawable/ic_folder_black_24dp"
             android:title="Proje Oluştur" />
-
-
 
     </group>
 
