@@ -108,6 +108,43 @@
                     android:layout_margin="5dp"
                     android:text="Departmanlar"
                     android:textColor="@color/White" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/deparman_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_add_circle" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <ListView
@@ -127,6 +164,42 @@
                     android:layout_margin="5dp"
                     android:text="Sorumlular"
                     android:textColor="@color/White" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sorumlu_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_add_circle" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <ListView
@@ -149,47 +222,48 @@
 
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/gorevler_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
             <LinearLayout
+                android:id="@+id/gorev_root"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <Button
-                    android:id="@+id/bt_departman_ekle"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:text="Departman Ekle"
-                    android:textColor="@color/White" />
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/bt_gorev_ekle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:text="Görev Ekle"
-                    android:textColor="@color/White" />
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/bt_gorevli_ekle"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:text="Görevli Ekle"
-                    android:textColor="@color/White" />
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_add_circle" />
+                </LinearLayout>
 
             </LinearLayout>
+
+            <ListView
+                android:nestedScrollingEnabled="true"
+                android:id="@+id/gorevler_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

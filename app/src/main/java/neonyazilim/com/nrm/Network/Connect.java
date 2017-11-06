@@ -98,11 +98,16 @@ public interface Connect {
     @POST("getUser"+S.publickey)
     Call<List<Kullanici>> getUser(@Body RequestBody departman);
 
+    @POST("getUsers"+S.publickey)
+    Call<List<Kullanici>> getUsers(@Body RequestBody departman);
 
     @POST("sendProject"+S.publickey)
     Call<Proje> sendProject(@Body Proje proje);
 
     @POST("getProjeler"+S.publickey)
     Call<List<Proje>> getProjeler(@Body RequestBody requestBody);
+
+    @POST("getGorevler"+S.publickey)
+    Call<List<Gorev>> getGorevler (@Body RequestBody requestBody);
 
 }

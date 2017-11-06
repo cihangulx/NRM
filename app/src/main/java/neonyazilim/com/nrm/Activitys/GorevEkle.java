@@ -168,10 +168,8 @@ public class GorevEkle extends AppCompatActivity {
         });
 
     }
-
     private void sendGorev() {
         Gorev gorev = new Gorev();
-
         gorev.setProje(proje.getId());
         gorev.setBaslik(et_baslik.getText().toString());
         gorev.setAciklama(et_aciklama.getText().toString());
@@ -187,7 +185,6 @@ public class GorevEkle extends AppCompatActivity {
             adimlar[i] = ((Adim) adim_list_view.getAdapter().getItem(i)).getBaslik();
         }
         gorev.setAdimlar(adimlar);
-
         Call<Gorev> call = Db.getConnect().gorevEkle(gorev);
         call.enqueue(new Callback<Gorev>() {
             @Override
@@ -200,12 +197,10 @@ public class GorevEkle extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<Gorev> call, Throwable t) {
                 //   Log.e("gorev",t.getMessage());
             }
         });
     }
-
 }

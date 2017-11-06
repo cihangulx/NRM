@@ -3,8 +3,9 @@ package neonyazilim.com.nrm.Models;
 import java.util.Date;
 
 /**
- * Created by tuzlabim on 26.10.2017.
+ * Created by cihan on 26.10.2017.
  */
+
 
 public class Talep {
     private String id;
@@ -14,6 +15,14 @@ public class Talep {
     private String alici; //alıcı id
     private Date tarih;
 
+    /**
+     *
+     * @param baslik
+     * @param aciklama
+     * @param gonderen
+     * @param alici
+     * @param tarih
+     */
     public Talep(String baslik, String aciklama, String gonderen, String alici, Date tarih) {
         this.baslik = baslik;
         this.aciklama = aciklama;
@@ -72,4 +81,5 @@ public class Talep {
     public void setTarih(Date tarih) {
         this.tarih = tarih;
     }
+
 }

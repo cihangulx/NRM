@@ -54,7 +54,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activitys.GorevEkle"></activity>
+        <activity android:name=".Activitys.GorevEkle" />
+
+        <service
+            android:name=".Network.Receiver"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

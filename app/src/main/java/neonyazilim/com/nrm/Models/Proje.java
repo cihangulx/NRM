@@ -1,5 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
+import java.util.List;
+
 /**
  * Created by cihan on 26.10.2017.
  */
@@ -12,6 +14,7 @@ public class Proje {
     private String gonderen;// Gönderen id
     private String [] gorevler;
     private String [] gorevliler;
+    private List<Kullanici> sorumluList;
     private String tarih;
     private String [] sorumlular;
     private String token;
@@ -123,5 +126,13 @@ public class Proje {
 
     public void setDepartmanlar(String[] departmanlar) {
         this.departmanlar = departmanlar;
+    }
+
+    public List<Kullanici> getSorumluList() {
+        return sorumluList;
+    }
+
+    public void setSorumluList(List<Kullanici> sorumluList) {
+        this.sorumluList = sorumluList;
     }
 }
