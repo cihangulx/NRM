@@ -1,5 +1,6 @@
 package neonyazilim.com.nrm.Models;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class Proje {
     private String [] gorevler;
     private String [] gorevliler;
     private List<Kullanici> sorumluList;
-    private String tarih;
+    private Date tarih;
     private String [] sorumlular;
     private String token;
     private int progress;
@@ -26,7 +27,7 @@ public class Proje {
     public Proje() {
     }
 
-    public Proje(String id, String baslik, String aciklama, String gonderen, String[] gorevler, String[] gorevliler, String tarih, String[] sorumlular, String token, int progress, String[] departmanlar) {
+    public Proje(String id, String baslik, String aciklama, String gonderen, String[] gorevler, String[] gorevliler, Date tarih, String[] sorumlular, String token, int progress, String[] departmanlar) {
         this._id = id;
         this.baslik = baslik;
         this.aciklama = aciklama;
@@ -88,11 +89,11 @@ public class Proje {
         this.gorevliler = gorevliler;
     }
 
-    public String getTarih() {
+    public Date getTarih() {
         return tarih;
     }
 
-    public void setTarih(String tarih) {
+    public void setTarih(Date tarih) {
         this.tarih = tarih;
     }
 

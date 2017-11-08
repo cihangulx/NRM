@@ -126,11 +126,12 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <Spinner
+                    <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/sp_unvan"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        app:ms_arrowSize="16dp"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -165,11 +166,12 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <Spinner
+                    <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/sp_departman"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        app:ms_arrowSize="16dp"
+                        />
                 </LinearLayout>
 
             </LinearLayout>

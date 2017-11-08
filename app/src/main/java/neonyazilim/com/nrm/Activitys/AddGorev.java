@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +27,6 @@ import neonyazilim.com.nrm.Adapters.AdimAdapter;
 import neonyazilim.com.nrm.Adapters.KullaniciAdapter;
 import neonyazilim.com.nrm.MainActivity;
 import neonyazilim.com.nrm.Models.Adim;
-import neonyazilim.com.nrm.Models.Departman;
 import neonyazilim.com.nrm.Models.Gorev;
 import neonyazilim.com.nrm.Models.Kullanici;
 import neonyazilim.com.nrm.Models.Proje;
@@ -39,8 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GorevEkle extends AppCompatActivity {
-
+public class AddGorev extends AppCompatActivity {
     ListView adim_list_view, gorevli_listview;
 
     EditText et_baslik, et_aciklama, et_adim_baslik;
@@ -51,16 +49,18 @@ public class GorevEkle extends AppCompatActivity {
 
     List<Adim> adimList = new ArrayList<>();
     List<Kullanici> gorevliList = new ArrayList<>();
-
     Proje proje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gorev_ekle);
+        setContentView(R.layout.activity_add_gorev);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Görev Ekle");
+
         sp_gorevli = (Spinner) findViewById(R.id.sp_gorevli);
+
+        gorevli_listview =(ListView)findViewById(R.id.gorevli_listview);
         try {
             final String stringProje = getIntent().getExtras().getString("proje");
             Gson gson = new Gson();
@@ -105,30 +105,6 @@ public class GorevEkle extends AppCompatActivity {
 
     }
 
-    private void adimEkle() {
-
-        Adim adim = new Adim();
-        if (!et_adim_baslik.getText().toString().isEmpty()) {
-            adim.setBaslik(et_adim_baslik.getText().toString());
-            adim_list_view.setVisibility(View.VISIBLE);
-        } else {
-            return;
-        }
-
-        adimList.add(adim);
-        et_adim_baslik.setText("");
-
-        if (adim_list_view.getAdapter() == null) {
-            AdimAdapter adimAdapter = new AdimAdapter(this, adimList);
-            adim_list_view.setAdapter(adimAdapter);
-        } else {
-            AdimAdapter adapter = (AdimAdapter) adim_list_view.getAdapter();
-            adapter.notifyDataSetChanged();
-        }
-
-
-    }
-
 
     private void getUser(String[] departmanList) {
         Log.e("date",new Date().toString());
@@ -149,11 +125,11 @@ public class GorevEkle extends AppCompatActivity {
                         isimler[i] = response.body().get(i).getIsim() + " " + response.body().get(i).getSoyIsim();
                     }
 
-                    ArrayAdapter<String> kullaniciAdapter = new ArrayAdapter<String>(GorevEkle.this, android.R.layout.simple_dropdown_item_1line, isimler);
+                    ArrayAdapter<String> kullaniciAdapter = new ArrayAdapter<String>(AddGorev.this, android.R.layout.simple_dropdown_item_1line, isimler);
                     sp_gorevli.setAdapter(kullaniciAdapter);
 
                     final List<Kullanici> selectedKullanici = new ArrayList<Kullanici>();
-                    final KullaniciAdapter selectedKullaniciAdapter = new KullaniciAdapter(GorevEkle.this, selectedKullanici);
+                    final KullaniciAdapter selectedKullaniciAdapter = new KullaniciAdapter(AddGorev.this, selectedKullanici);
                     bt_gorevli_ekle.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -161,10 +137,21 @@ public class GorevEkle extends AppCompatActivity {
                             selectedKullanici.add( response.body().get(sp_gorevli.getSelectedItemPosition()));
                             gorevliList.add( response.body().get(sp_gorevli.getSelectedItemPosition()));
                             selectedKullaniciAdapter.notifyDataSetChanged();
+
                             gorevli_listview.setVisibility(View.VISIBLE);
+
+                            gorevli_listview.setAdapter(selectedKullaniciAdapter);
+
+                            ViewGroup.LayoutParams params = gorevli_listview.getLayoutParams();
+                            params.height = (gorevli_listview.getAdapter().getCount()*140);
+                            gorevli_listview.setLayoutParams(params);
+                            gorevli_listview.requestLayout();
+
+                            Log.e("size",""+(gorevli_listview.getAdapter().getCount()*140));
+
+
                         }
                     });
-                    sp_gorevli.setAdapter(kullaniciAdapter);
                     Log.e("code", "" + response.code());
                 }
             }
@@ -175,6 +162,31 @@ public class GorevEkle extends AppCompatActivity {
         });
 
     }
+
+    private void adimEkle() {
+
+        Adim adim = new Adim();
+        if (!et_adim_baslik.getText().toString().isEmpty()) {
+            adim.setBaslik(et_adim_baslik.getText().toString());
+            adim_list_view.setVisibility(View.VISIBLE);
+            adimList.add(adim);
+            et_adim_baslik.setText("");
+        } else {
+            return;
+        }
+
+
+        if (adim_list_view.getAdapter() == null) {
+            AdimAdapter adimAdapter = new AdimAdapter(this, adimList);
+            adim_list_view.setAdapter(adimAdapter);
+        } else {
+            AdimAdapter adapter = (AdimAdapter) adim_list_view.getAdapter();
+            adapter.notifyDataSetChanged();
+        }
+
+
+    }
+
     private void sendGorev() {
         Gorev gorev = new Gorev();
         gorev.setProje(proje.getId());
@@ -188,10 +200,12 @@ public class GorevEkle extends AppCompatActivity {
         }
         gorev.setGorevli(gorevliler);
 
-        for (int i = 0; i < adim_list_view.getAdapter().getCount(); i++) {
-            adimlar[i] = ((Adim) adim_list_view.getAdapter().getItem(i)).getBaslik();
+        Log.e("adimList",""+adimList.size());
+        for (int i = 0; i < adimList.size(); i++) {
+            adimlar[i] = adimList.get(i).getBaslik();
         }
         gorev.setAdimlar(adimList);
+
         Call<Gorev> call = Db.getConnect().gorevEkle(gorev);
         call.enqueue(new Callback<Gorev>() {
             @Override
@@ -201,15 +215,22 @@ public class GorevEkle extends AppCompatActivity {
                     if (!response.body().getId().isEmpty()) {
                         //Görev eklendi
                         Log.e("gorev", "Görev eklendi");
+                        Toast.makeText(AddGorev.this,"Görev Eklendi",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        NavUtils.navigateUpTo(AddGorev.this, intent);
                     }
                 }
             }
             @Override
             public void onFailure(Call<Gorev> call, Throwable t) {
-                   Log.e("gorev",t.getMessage());
+                Log.e("gorev",t.getMessage());
             }
         });
     }
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -2,6 +2,7 @@ package neonyazilim.com.nrm.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,9 @@ Activity activity;
 
         bitti.setChecked(adim.isBitti());
 
-
+        if (position %2==0){
+            view.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        }
 
         baslik.setText(adim.getBaslik());
         bitti.setChecked(adim.isBitti());

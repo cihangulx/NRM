@@ -2,7 +2,6 @@ package neonyazilim.com.nrm.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,33 +10,33 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import neonyazilim.com.nrm.Models.Departman;
+import neonyazilim.com.nrm.Models.Gorev;
 import neonyazilim.com.nrm.R;
 
 /**
- * Created by tuzlabim on 30.10.2017.
+ * Created by tuzlabim on 8.11.2017.
  */
 
-public class DepartmanAdapter extends BaseAdapter {
+public class GorevAdapter extends BaseAdapter {
 
     Activity activity;
-    List<Departman> departmanList;
+    List<Gorev> gorevList;
     LayoutInflater layoutInflater;
 
-    public DepartmanAdapter(Activity activity, List<Departman> departmanList) {
+    public GorevAdapter(Activity activity, List<Gorev> gorevList) {
         this.activity = activity;
-        this.departmanList = departmanList;
-        layoutInflater= (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.gorevList = gorevList;
+        layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return departmanList.size();
+        return gorevList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return departmanList.get(position);
+        return gorevList.get(position);
     }
 
     @Override
@@ -48,13 +47,13 @@ public class DepartmanAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view =layoutInflater.inflate(R.layout.departman_item_view,parent,false);
+        View view = layoutInflater.inflate(R.layout.gorev_item_view, parent, false);
 
         TextView baslik = view.findViewById(R.id.baslik);
-        baslik.setText(departmanList.get(position).getBaslik());
-        if (position %2==1){
-            view.setBackgroundColor(Color.parseColor("#F5F5F5"));
-        }
+
+
+        baslik.setText("" + gorevList.get(position).getBaslik());
+
         return view;
     }
 }

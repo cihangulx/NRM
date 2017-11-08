@@ -19,9 +19,12 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import neonyazilim.com.nrm.Adapters.DepartmanAdapter;
@@ -45,12 +48,11 @@ import static neonyazilim.com.nrm.R.id.sorumlu_list_view;
 public class ProjeDetay extends AppCompatActivity {
 
 
-    SeekBar seekbar;
     Proje proje;
-    TextView projeBaslik, projeAciklama, projeTarih, progressText;
-    ListView departman_listview,sorumlu_listview,gorevler_list_view;
-
-    LinearLayout deparman_root,sorumlu_root,gorev_root;
+    TextView projeBaslik, projeAciklama, projeTarih;
+    ListView departman_listview, sorumlu_listview, gorevler_list_view;
+    DonutProgress donutProgress;
+    LinearLayout deparman_root, sorumlu_root, gorev_root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +61,19 @@ public class ProjeDetay extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("");
 
         projeBaslik = (TextView) findViewById(R.id.proje_baslik);
         projeAciklama = (TextView) findViewById(R.id.proje_aciklama);
         projeTarih = (TextView) findViewById(R.id.proje_tarih);
-        seekbar = findViewById(R.id.progress);
-        progressText = (TextView) findViewById(R.id.ilerleme);
-        deparman_root =(LinearLayout)findViewById(R.id.deparman_root);
-        sorumlu_root =(LinearLayout)findViewById(R.id.sorumlu_root);
-        gorev_root =(LinearLayout)findViewById(R.id.gorev_root);
 
+        deparman_root = (LinearLayout) findViewById(R.id.deparman_root);
+        sorumlu_root = (LinearLayout) findViewById(R.id.sorumlu_root);
+        gorev_root = (LinearLayout) findViewById(R.id.gorev_root);
+        donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
         departman_listview = (ListView) findViewById(R.id.departman_list_view);
-        sorumlu_listview=(ListView)findViewById(R.id.sorumlu_list_view);
-        gorevler_list_view =(ListView)findViewById(R.id.gorevler_list_view);
+        sorumlu_listview = (ListView) findViewById(R.id.sorumlu_list_view);
+        gorevler_list_view = (ListView) findViewById(R.id.gorevler_list_view);
         try {
             final String stringProje = getIntent().getExtras().getString("proje");
             Gson gson = new Gson();
@@ -79,17 +81,20 @@ public class ProjeDetay extends AppCompatActivity {
 
             projeBaslik.setText(proje.getBaslik());
             projeAciklama.setText(proje.getAciklama());
-            seekbar.setProgress(proje.getProgress());
-            //seekbar.setEnabled(false);
-            progressText.setText("%" + proje.getProgress());
-            projeTarih.setText("" + proje.getTarih());
 
-            seekbar.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });
+            if (proje.getBaslik().length() > 8) {
+                setTitle(proje.getBaslik().substring(0, 11) + "...");
+            }
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(proje.getTarih());
+            int year = calendar.get(Calendar.YEAR);
+//Add one to month {0 - 11}
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            projeTarih.setText("" + day + "/" + (month) + "/" + year);
+
+            donutProgress.setProgress(proje.getProgress());
 
                   /*  Intent intent = new Intent(ProjeDetay.this, GorevEkle.class);
                     intent.putExtra("proje", stringProje);
@@ -103,6 +108,7 @@ public class ProjeDetay extends AppCompatActivity {
         getSorumlular();
         getGorevler();
     }
+
     private void getDepartman() {
 
         Call<List<Departman>> call = Db.getConnect().getDepartman();
@@ -134,11 +140,12 @@ public class ProjeDetay extends AppCompatActivity {
         });
 
     }
+
     private void getSorumlular() {
         RequestBody requestBody = new RequestBody(S.userId, S.userToken);
 
         Gson gson = new Gson();
-        Log.e("req",gson.toJson(requestBody));
+        Log.e("req", gson.toJson(requestBody));
         Call<List<Kullanici>> call = Db.getConnect().getUsers(requestBody);
         call.enqueue(new Callback<List<Kullanici>>() {
             @Override
@@ -146,19 +153,19 @@ public class ProjeDetay extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body().size() > 0) {
                         //
-                        Log.e("code:",""+response.code());
+                        Log.e("code:", "" + response.code());
                         List<Kullanici> kullaniciList = response.body();
                         String[] sorumlular = proje.getSorumlular();
                         List<Kullanici> filtered = new ArrayList<Kullanici>();
                         for (int i = 0; i < kullaniciList.size(); i++) {
                             for (int j = 0; j < sorumlular.length; j++) {
-                                if (kullaniciList.get(i).getId().equals(sorumlular[j])){
+                                if (kullaniciList.get(i).getId().equals(sorumlular[j])) {
                                     filtered.add(kullaniciList.get(i));
                                 }
                             }
                         }
 
-                        KullaniciAdapter kullaniciAdapter = new KullaniciAdapter(ProjeDetay.this,filtered);
+                        KullaniciAdapter kullaniciAdapter = new KullaniciAdapter(ProjeDetay.this, filtered);
 
                         sorumlu_listview.setAdapter(kullaniciAdapter);
 
@@ -168,42 +175,45 @@ public class ProjeDetay extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Kullanici>> call, Throwable t) {
-                Log.e("fail",t.getMessage());
+                Log.e("fail", t.getMessage());
             }
         });
     }
+
     private void getGorevler() {
-        RequestBody requestBody=new RequestBody(proje.getId(),S.userToken);
+        RequestBody requestBody = new RequestBody(proje.getId(), S.userToken);
         Call<List<Gorev>> call = Db.getConnect().getGorevler(requestBody);
         call.enqueue(new Callback<List<Gorev>>() {
             @Override
             public void onResponse(Call<List<Gorev>> call, Response<List<Gorev>> response) {
-                Log.e("code:",""+response.code());
-                if (response.code()==200){
+                Log.e("code:", "" + response.code());
+                if (response.code() == 200) {
 
 
-                    String [] gorevler = new String[response.body().size()];
-                    for (int i=0;i<response.body().size();i++){
-                        gorevler[i]=response.body().get(i).getBaslik();
+                    String[] gorevler = new String[response.body().size()];
+                    for (int i = 0; i < response.body().size(); i++) {
+                        gorevler[i] = response.body().get(i).getBaslik();
                     }
 
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(ProjeDetay.this,android.R.layout.simple_list_item_1,gorevler);
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(ProjeDetay.this, android.R.layout.simple_list_item_1, gorevler);
                     gorevler_list_view.setAdapter(arrayAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Gorev>> call, Throwable t) {
-                Log.e("fail",t.getMessage());
+                Log.e("fail", t.getMessage());
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.proje_detay_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -213,12 +223,20 @@ public class ProjeDetay extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
 
-        if (id==R.id.action_add_department){
-         deparman_root.setVisibility(View.VISIBLE);
-        }else if (id==R.id.action_add_sorumlu){
-          sorumlu_root.setVisibility(View.VISIBLE);
-        }else if (id==R.id.action_add_gorev){
-           gorev_root.setVisibility(View.VISIBLE);
+        if (id == R.id.action_add_department) {
+            deparman_root.setVisibility(View.VISIBLE);
+        } else if (id == R.id.action_add_sorumlu) {
+            sorumlu_root.setVisibility(View.VISIBLE);
+        } else if (id == R.id.action_add_gorev) {
+            Gson gson = new Gson();
+            String projeString = gson.toJson(proje);
+            Intent intent = new Intent(this, AddGorev.class);
+            intent.putExtra("proje", projeString);
+            startActivity(intent);
+        } else if (id == android.R.id.home) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            NavUtils.navigateUpTo(this, intent);
+            return true;
         }
 
 

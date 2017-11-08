@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
 import neonyazilim.com.nrm.Adapters.DepartmanAdapter;
 import neonyazilim.com.nrm.MainActivity;
 import neonyazilim.com.nrm.Models.Departman;
@@ -34,7 +35,8 @@ import retrofit2.Response;
 
 public class KullaniciEkle extends AppCompatActivity {
 
-    Spinner sp_departman, sp_unvan;
+    Spinner sp_departman;
+   MaterialSpinner sp_unvan;
 
     CheckBox talepAcabilir;
     CheckBox projeAcabilir;
@@ -65,7 +67,7 @@ public class KullaniciEkle extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Kullanıcı Ekle");
         sp_departman = (Spinner) findViewById(R.id.sp_departman);
-        sp_unvan = (Spinner) findViewById(R.id.sp_unvan);
+        sp_unvan =  findViewById(R.id.sp_unvan);
         getDepartman();
         getUnvan();
 
@@ -141,7 +143,7 @@ public class KullaniciEkle extends AppCompatActivity {
         }
 
         Departman departman = (Departman) sp_departman.getSelectedItem();
-        kullanici.setUnvan(sp_unvan.getSelectedItem().toString());
+        kullanici.setUnvan(sp_unvan.getAdapter().getItem(sp_unvan.getSelectedItemPosition()).toString());
         kullanici.setDepartman(departman.getId());
 
         kullanici.setTalepAcabilir(talepAcabilir.isChecked());
@@ -213,7 +215,7 @@ public class KullaniciEkle extends AppCompatActivity {
                     for (int i = 0; i < response.body().size(); i++) {
                         unvan_baslik_list[i] = response.body().get(i).getBaslik();
                     }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(KullaniciEkle.this, android.R.layout.simple_dropdown_item_1line, unvan_baslik_list);
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(KullaniciEkle.this,R.layout.unvan_item_view, unvan_baslik_list);
                     final List<Unvan> unvanList = response.body();
 
                     sp_unvan.setAdapter(arrayAdapter);

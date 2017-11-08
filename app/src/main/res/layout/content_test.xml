@@ -4,17 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="neonyazilim.com.nrm.TestActivity"
     tools:showIn="@layout/activity_test">
+
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:layout_marginLeft="50dp"
+        android:id="@+id/donut_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        custom:donut_progress="30"/>
+
 
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/code"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/donut_progress" />
 
     <TextView
         android:id="@+id/code"
@@ -22,4 +30,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

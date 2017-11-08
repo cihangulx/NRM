@@ -263,7 +263,7 @@ public class ProjeEkle extends AppCompatActivity {
         proje.setToken(S.userToken);
         proje.setDepartmanlar(departmanList);
         proje.setSorumlular(sorumluList);
-        proje.setTarih(new Date().toString());
+        proje.setTarih(new Date());
         Call<Proje> call = Db.getConnect().sendProject(proje);
         call.enqueue(new Callback<Proje>() {
             @Override

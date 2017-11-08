@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.lzyzsd.circleprogress.DonutProgress;
+
 import java.util.List;
 
 import neonyazilim.com.nrm.Models.Departman;
@@ -20,7 +22,8 @@ import retrofit2.Response;
 public class TestActivity extends AppCompatActivity {
 
     TextView code,message;
-
+    DonutProgress donut_progress;
+    int progress=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +33,14 @@ public class TestActivity extends AppCompatActivity {
 
         message=findViewById(R.id.message);
         code=findViewById(R.id.code);
+        donut_progress=(DonutProgress)findViewById(R.id.donut_progress);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*getDepartman();*/
-                Snackbar.make(view, ""+Long.toHexString(Double.doubleToLongBits(Math.random())), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               progress+=10;
+                donut_progress.setProgress(progress);
             }
         });
     }

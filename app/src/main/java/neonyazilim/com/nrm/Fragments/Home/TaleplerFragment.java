@@ -54,21 +54,7 @@ public class TaleplerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.e("talep","onCreate");
     }
-    private void setTalep() {
-        Log.e("talep","setTalep");
-        List<Talep> talepList = new ArrayList<>();
-        talepList.add(new Talep("Aurafix Uygulaması", "Aurafix mobil uygulamasının yapılması", "Mahmut Karasoy", "https://www.openpediatrics.org/sites/default/files/pictures/picture-1508-1475079208.jpg", new Date()));
-        talepList.add(new Talep("Aurafix Uygulaması", "Aurafix mobil uygulamasının yapılması", "Mahmut Karasoy", "https://bytela.com/wp-content/uploads/2014/10/our_team_3.jpg", new Date()));
-        talepList.add(new Talep("Aurafix Uygulaması", "Aurafix mobil uygulamasının yapılması", "Mahmut Karasoy", "https://niteco.com/globalassets/2.-who-we-are/2.2-our-team/desktop/ourteam-petra-desktop.jpg?preset=800", new Date()));
-        talepList.add(new Talep("Aurafix Uygulaması", "Aurafix mobil uygulamasının yapılması", "Mahmut Karasoy", "https://niteco.com/globalassets/2.-who-we-are/2.2-our-team/desktop/ourteam-pelle-desktop.jpg?preset=800", new Date()));
-        talepList.add(new Talep("Aurafix Uygulaması", "Aurafix mobil uygulamasının yapılması", "Mahmut Karasoy", "http://www.themarketingcentre.com/wp-content/uploads/2015/03/Richard-photo-2016-e1476353243822.jpg", new Date()));
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
-        GridLayoutManager gridLayoutManager2 = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
-        TalepAdapter talepAdapter = new TalepAdapter(talepList, getActivity());
-        TalepAdapter talepAdapter2 = new TalepAdapter(talepList, getActivity());
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(talepAdapter);
-    }
+
     private void getTalep() {
 
         RequestBody requestBody = new RequestBody(S.userId,S.userToken);
@@ -85,7 +71,7 @@ public class TaleplerFragment extends Fragment {
                     Gson gson = new Gson();
 
                     Log.e("talep",gson.toJson(response.body().get(0)));
-                    Log.e("date",""+response.body().get(0).getTarih().toString());
+                    Log.e("date",""+new Date().toString());
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
                     TalepAdapter talepAdapter = new TalepAdapter(response.body(), getActivity());

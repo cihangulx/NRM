@@ -5,36 +5,40 @@
         android:id="@+id/action_add_department"
         android:orderInCategory="100"
         android:title="Departman ekle"
-        android:icon="@drawable/ic_edit_black_24dp"
+        android:icon="@drawable/ic_assignment_ind_black_24dp"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_add_gorev"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_folder_black_24dp"
         android:title="Görev Ekle"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_add_gorevli"
         android:orderInCategory="100"
         android:title="Görevli Ekle"
+        android:icon="@drawable/ic_person_black_24dp"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_add_sorumlu"
         android:orderInCategory="100"
         android:title="Sorumlu Ekle"
+        android:icon="@drawable/ic_person_add_black_24dp"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_edit"
         android:orderInCategory="100"
         android:title="Projeyi Düzenle"
+        app:showAsAction="always"
         android:icon="@drawable/ic_edit_black_24dp"
-
-        app:showAsAction="never" />
+        />
     <item
+        android:icon="@drawable/ic_add_circle"
         android:id="@+id/action_delete"
         android:orderInCategory="100"
         android:title="Projeyi Sil"
-        app:showAsAction="never" />
+         />
 
 </menu>

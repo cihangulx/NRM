@@ -39,14 +39,14 @@ public class ProjelerFragment extends Fragment {
         View view = inflater.inflate(R.layout.projeler_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-
+        getProjeler();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getProjeler();
+
 
     }
     private void getProjeler() {

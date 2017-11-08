@@ -25,6 +25,13 @@
                 android:background="#EEEEEE"
                 android:orientation="vertical">
 
+                <com.github.lzyzsd.circleprogress.DonutProgress
+                    android:id="@+id/donut_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:donut_progress="0" />
+
                 <TextView
                     android:id="@+id/proje_baslik"
                     android:layout_width="match_parent"
@@ -46,7 +53,7 @@
                     android:id="@+id/proje_aciklama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minLines="6"
+                    android:minLines="3"
                     android:text="Açıklama" />
 
                 <TextView
@@ -59,53 +66,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#E0F2F1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/colorAccent"
-                    android:id="@+id/textView11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="İlerleme:" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <SeekBar
-                    android:id="@+id/progress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:clickable="false"
-
-                    android:max="100"
-                    android:progress="0" />
-
-                <TextView
-                    android:id="@+id/ilerleme"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorAccent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/text_back"
+                    android:padding="5dp"
                     android:text="Departmanlar"
                     android:textColor="@color/White" />
 
@@ -155,13 +125,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="#E0F2F1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:background="@drawable/text_back"
+                    android:padding="5dp"
                     android:text="Sorumlular"
                     android:textColor="@color/White" />
             </LinearLayout>
@@ -208,15 +179,16 @@
                 android:layout_height="match_parent" />
 
             <LinearLayout
-                android:background="@color/colorAccent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#E0F2F1"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                  android:padding="5dp"
+                    android:background="@drawable/text_back"
                     android:text="Görevler"
                     android:textColor="@color/White" />
 
@@ -259,10 +231,10 @@
             </LinearLayout>
 
             <ListView
-                android:nestedScrollingEnabled="true"
                 android:id="@+id/gorevler_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                android:nestedScrollingEnabled="true" />
 
         </LinearLayout>
     </LinearLayout>

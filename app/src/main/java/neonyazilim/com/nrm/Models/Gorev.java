@@ -1,5 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
+import java.util.List;
+
 /**
  * Created by tuzlabim on 3.11.2017.
  */
@@ -13,7 +15,7 @@ public class Gorev {
     private String [] gorevli;
     private String tarih;
     private String token;
-    private String [] adimlar;
+    private List<Adim> adimlar;
     private String proje;
     private int progress;
 
@@ -39,11 +41,11 @@ public class Gorev {
         this.proje = proje;
     }
 
-    public String[] getAdimlar() {
+    public List<Adim> getAdimlar() {
         return adimlar;
     }
 
-    public void setAdimlar(String[] adimlar) {
+    public void setAdimlar(List<Adim> adimlar) {
         this.adimlar = adimlar;
     }
 
