@@ -19,6 +19,7 @@ public class Gorev {
     private List<Adim> adimlar;
     private String proje;
     private int progress;
+    private int projeProgress;
 
     public Gorev() {
     }
@@ -33,6 +34,13 @@ public class Gorev {
         this.progress = progress;
     }
 
+    public int getProjeProgress() {
+        return projeProgress;
+    }
+
+    public void setProjeProgress(int projeProgress) {
+        this.projeProgress = projeProgress;
+    }
 
     public String getProje() {
         return proje;

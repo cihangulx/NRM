@@ -3,6 +3,7 @@ package neonyazilim.com.nrm.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,20 +59,29 @@ public class GorevAdapter extends BaseAdapter {
         LinearLayout linearLayout = view.findViewById(R.id.linear_root);
 
         TextView baslik = view.findViewById(R.id.baslik);
+        TextView durum = view.findViewById(R.id.durum);
+
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity,GorevDetay.class);
+                Intent intent = new Intent(activity, GorevDetay.class);
                 Gson gson = new Gson();
-              String gorevString= gson.toJson(gorevList.get(position));
-                intent.putExtra("gorev",gorevString);
+                String gorevString = gson.toJson(gorevList.get(position));
+                intent.putExtra("gorev", gorevString);
                 activity.startActivity(intent);
             }
         });
 
 
         baslik.setText("" + gorevList.get(position).getBaslik());
+        if (gorevList.get(position).getProgress() > 99) {
+            durum.setText("Tamamlandı");
+            durum.setTextColor(Color.GREEN);
+        }else {
+            durum.setText("Devam Ediyor");
+            durum.setTextColor(Color.RED);
+        }
 
         return view;
     }

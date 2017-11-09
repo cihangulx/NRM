@@ -195,8 +195,24 @@ public class ProjeDetay extends AppCompatActivity {
                 if (response.code() == 200) {
                     if (response.body().size()>0){
                         Log.e("res",response.body().get(0).getBaslik());
+
+                        double bolum =100f/response.body().size();
+                        double carpan = getTamamlananGorevler(response.body());
+
+                        float sonuc =new Float(bolum*carpan);
+                        List<Gorev> gorevList = response.body();
+
+                        for (int i=0;i<response.body().size();i++){
+                            gorevList.get(i).setProjeProgress((int)sonuc);
+                        }
                         GorevAdapter gorevAdapter = new GorevAdapter(ProjeDetay.this, response.body());
                         gorevler_list_view.setAdapter(gorevAdapter);
+
+
+
+                        // Toast.makeText(GorevDetay.this,""+bolum,Toast.LENGTH_LONG).show();
+                        donutProgress.setProgress(Math.round(sonuc));
+                        updateProje((int) sonuc);
                     }
 
                 }
@@ -207,6 +223,15 @@ public class ProjeDetay extends AppCompatActivity {
                 Log.e("fail", t.getMessage());
             }
         });
+    }
+
+    private void updateProje(int sonuc){
+
+        Proje proje1 = proje;
+        proje1.setProgress(sonuc);
+
+
+
     }
 
     @Override
@@ -243,5 +268,15 @@ public class ProjeDetay extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private int getTamamlananGorevler(List<Gorev> gorevList){
+        int tamamlanan =0;
+        for (int i =0;i<gorevList.size();i++){
+            if (gorevList.get(i).getProgress()>99){
+                tamamlanan++;
+            }
+        }
+        return tamamlanan;
     }
 }

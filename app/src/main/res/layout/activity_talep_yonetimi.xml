@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="neonyazilim.com.nrm.Activitys.TalepYonetimi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            app:ms_hint="Durum:"
+            app:ms_hintColor="@color/colorPrimary"
+            app:ms_hintView="@android:layout/simple_list_item_1"
+            android:id="@+id/durum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            app:ms_hint="Tüm Zamanlar"
+            android:id="@+id/tarih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <fr.ganfra.materialspinner.MaterialSpinner
+            app:ms_hint="Tüm Departmanlar"
+            android:id="@+id/departman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+</RelativeLayout>

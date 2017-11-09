@@ -62,7 +62,9 @@
             android:exported="true" />
 
         <activity android:name=".Activitys.AddGorev" />
-        <activity android:name=".Activitys.GorevDetay"></activity>
+        <activity android:name=".Activitys.GorevDetay" />
+        <activity android:name=".Activitys.TalepYonetimi" />
+        <activity android:name=".Activitys.ProjeYonetimi"></activity>
     </application>
 
 </manifest>

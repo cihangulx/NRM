@@ -75,6 +75,8 @@ public class GorevDetay extends AppCompatActivity {
             if (gorev.getBaslik().length() > 8) {
                 setTitle(gorev.getBaslik().substring(0, 11) + "...");
             }
+
+            Log.e("gorev",stringGorev);
            /* Calendar calendar = new GregorianCalendar();
             calendar.setTime(gorev.getTarih());
             int year = calendar.get(Calendar.YEAR);
@@ -212,13 +214,42 @@ public class GorevDetay extends AppCompatActivity {
         adim1.setBitti(bitti);
         adimList.set(position,adim1);
 
-        Gorev gorev1 = gorev;
+        final Gorev gorev1 = gorev;
         gorev1.setAdimlar(adimList);
 
         double bolum =100f/gorev1.getAdimlar().size();
         double carpan = getTamamlananAdimlar(gorev1.getAdimlar());
         float sonuc =new Float(bolum*carpan);
         gorev1.setProgress(Math.round(sonuc));
+
+        RequestBody requestBody = new RequestBody(gorev1.getProje(), S.userToken);
+
+        Call<List<Gorev>> call1 = Db.getConnect().getGorevler(requestBody);
+        call1.enqueue(new Callback<List<Gorev>>() {
+            @Override
+            public void onResponse(Call<List<Gorev>> call, Response<List<Gorev>> response) {
+                Log.e("code:", "" + response.code());
+                if (response.code() == 200) {
+                    if (response.body().size()>0){
+                        Log.e("res",response.body().get(0).getBaslik());
+
+                        double bolum =100f/response.body().size();
+                        double carpan = getTamamlananGorevler(response.body());
+
+                        float sonuc =new Float(bolum*carpan);
+                        gorev1.setProjeProgress((int)sonuc);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Gorev>> call, Throwable t) {
+                Log.e("fail", t.getMessage());
+            }
+        });
+
+
 
         Call<Gorev> call = Db.getConnect().updateGorev(gorev1);
         call.enqueue(new Callback<Gorev>() {
@@ -254,6 +285,15 @@ public class GorevDetay extends AppCompatActivity {
         });
 
 
+    }
+    private int getTamamlananGorevler(List<Gorev> gorevList){
+        int tamamlanan =0;
+        for (int i =0;i<gorevList.size();i++){
+            if (gorevList.get(i).getProgress()>99){
+                tamamlanan++;
+            }
+        }
+        return tamamlanan;
     }
 
 }

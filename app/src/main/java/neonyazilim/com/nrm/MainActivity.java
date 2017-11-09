@@ -30,6 +30,7 @@ import neonyazilim.com.nrm.Activitys.KullaniciEkle;
 import neonyazilim.com.nrm.Activitys.LoginActivity;
 import neonyazilim.com.nrm.Activitys.ProjeEkle;
 import neonyazilim.com.nrm.Activitys.TalepOlustur;
+import neonyazilim.com.nrm.Activitys.TalepYonetimi;
 import neonyazilim.com.nrm.Activitys.UnvanEkle;
 import neonyazilim.com.nrm.Adapters.TalepAdapter;
 import neonyazilim.com.nrm.Fragments.Home.MainFragment;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
+                startActivity(new Intent(MainActivity.this, TalepYonetimi.class));
             }
         });
 
