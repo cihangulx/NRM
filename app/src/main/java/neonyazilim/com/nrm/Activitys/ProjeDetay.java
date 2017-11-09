@@ -28,6 +28,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import neonyazilim.com.nrm.Adapters.DepartmanAdapter;
+import neonyazilim.com.nrm.Adapters.GorevAdapter;
 import neonyazilim.com.nrm.Adapters.KullaniciAdapter;
 import neonyazilim.com.nrm.MainActivity;
 import neonyazilim.com.nrm.Models.Departman;
@@ -79,6 +80,7 @@ public class ProjeDetay extends AppCompatActivity {
             Gson gson = new Gson();
             proje = gson.fromJson(stringProje, Proje.class);
 
+            Log.e("str", stringProje);
             projeBaslik.setText(proje.getBaslik());
             projeAciklama.setText(proje.getAciklama());
 
@@ -100,13 +102,15 @@ public class ProjeDetay extends AppCompatActivity {
                     intent.putExtra("proje", stringProje);
                     startActivity(intent);*/
 
+            getDepartman();
+            getSorumlular();
+            getGorevler();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        getDepartman();
-        getSorumlular();
-        getGorevler();
+
     }
 
     private void getDepartman() {
@@ -182,21 +186,19 @@ public class ProjeDetay extends AppCompatActivity {
 
     private void getGorevler() {
         RequestBody requestBody = new RequestBody(proje.getId(), S.userToken);
+
         Call<List<Gorev>> call = Db.getConnect().getGorevler(requestBody);
         call.enqueue(new Callback<List<Gorev>>() {
             @Override
             public void onResponse(Call<List<Gorev>> call, Response<List<Gorev>> response) {
                 Log.e("code:", "" + response.code());
                 if (response.code() == 200) {
-
-
-                    String[] gorevler = new String[response.body().size()];
-                    for (int i = 0; i < response.body().size(); i++) {
-                        gorevler[i] = response.body().get(i).getBaslik();
+                    if (response.body().size()>0){
+                        Log.e("res",response.body().get(0).getBaslik());
+                        GorevAdapter gorevAdapter = new GorevAdapter(ProjeDetay.this, response.body());
+                        gorevler_list_view.setAdapter(gorevAdapter);
                     }
 
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(ProjeDetay.this, android.R.layout.simple_list_item_1, gorevler);
-                    gorevler_list_view.setAdapter(arrayAdapter);
                 }
             }
 

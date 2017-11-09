@@ -2,14 +2,20 @@ package neonyazilim.com.nrm.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.List;
 
+import neonyazilim.com.nrm.Activitys.GorevDetay;
+import neonyazilim.com.nrm.Activitys.ProjeDetay;
 import neonyazilim.com.nrm.Models.Gorev;
 import neonyazilim.com.nrm.R;
 
@@ -45,11 +51,24 @@ public class GorevAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         View view = layoutInflater.inflate(R.layout.gorev_item_view, parent, false);
 
+        LinearLayout linearLayout = view.findViewById(R.id.linear_root);
+
         TextView baslik = view.findViewById(R.id.baslik);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity,GorevDetay.class);
+                Gson gson = new Gson();
+              String gorevString= gson.toJson(gorevList.get(position));
+                intent.putExtra("gorev",gorevString);
+                activity.startActivity(intent);
+            }
+        });
 
 
         baslik.setText("" + gorevList.get(position).getBaslik());

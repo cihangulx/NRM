@@ -110,4 +110,10 @@ public interface Connect {
     @POST("getGorevler"+S.publickey)
     Call<List<Gorev>> getGorevler (@Body RequestBody requestBody);
 
+    @POST("getGorevliler"+S.publickey)
+    Call<List<Kullanici>> getGorevliler(@Body RequestBody requestBody);
+
+    @POST("updateAdim"+S.publickey)
+    Call<Gorev> updateGorev(@Body Gorev gorev);
+
 }

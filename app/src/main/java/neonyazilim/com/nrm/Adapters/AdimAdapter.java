@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import neonyazilim.com.nrm.Activitys.GorevDetay;
 import neonyazilim.com.nrm.Models.Adim;
 import neonyazilim.com.nrm.R;
 
@@ -47,15 +50,33 @@ Activity activity;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = layoutInflater.inflate(R.layout.adim_item_view,parent,false);
 
         TextView baslik =(TextView)view.findViewById(R.id.adim_baslik);
-        CheckBox bitti =(CheckBox) view.findViewById(R.id.adim_bitti);
+        final CheckBox bitti =(CheckBox) view.findViewById(R.id.adim_bitti);
 
         Adim adim = adimList.get(position);
 
         bitti.setChecked(adim.isBitti());
+
+
+
+
+        bitti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (activity instanceof GorevDetay){
+                   // Toast.makeText(activity,"Görev Detay",Toast.LENGTH_LONG).show();
+                    GorevDetay gorevDetay = (GorevDetay) activity;
+
+                    gorevDetay.updateAdim(adimList.get(position),position,isChecked);
+                }
+
+            }
+        });
+
 
         if (position %2==0){
             view.setBackgroundColor(Color.parseColor("#F5F5F5"));
