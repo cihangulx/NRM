@@ -2,6 +2,7 @@ package neonyazilim.com.nrm.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import neonyazilim.com.nrm.Activitys.TalepDetay;
 import neonyazilim.com.nrm.Models.Talep;
 import neonyazilim.com.nrm.R;
 
@@ -62,7 +64,7 @@ public class TalepListAdapter extends BaseAdapter {
         baslik.setText(talepList.get(position).getBaslik());
         durum.setText(talepList.get(position).getDurum());
 
-        Talep talep = talepList.get(position);
+        final Talep talep = talepList.get(position);
         if (talep.getDurum().equals("İşlemde")){
             durum.setTextColor(Color.parseColor("#fc8c44"));
 
@@ -71,6 +73,20 @@ public class TalepListAdapter extends BaseAdapter {
         }else if (talep.getDurum().equals("Reddedildi")){
             durum.setTextColor(Color.RED);
         }
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity,TalepDetay.class);
+                intent.putExtra("id",talep.getId());
+                intent.putExtra("baslik",talep.getBaslik());
+                intent.putExtra("aciklama",talep.getAciklama());
+                intent.putExtra("gonderen",talep.getGonderen());
+                intent.putExtra("alici",talep.getAlici());
+                intent.putExtra("tarih",talep.getTarih());
+                activity.startActivity(intent);
+            }
+        });
 
 
         //gonderen.setText(talepList.get(position).getGonderen());
