@@ -7,6 +7,7 @@ package neonyazilim.com.nrm.Models;
 public class RequestBody {
     private String _id;
     private String token;
+    private String durum;
 
     private String [] departmanList;
 
@@ -16,6 +17,15 @@ public class RequestBody {
     }
 
     public RequestBody() {
+    }
+
+
+    public String getDurum() {
+        return durum;
+    }
+
+    public void setDurum(String durum) {
+        this.durum = durum;
     }
 
     public String getUserId() {

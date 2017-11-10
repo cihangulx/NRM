@@ -70,7 +70,7 @@ public class TaleplerFragment extends Fragment {
 
                     Gson gson = new Gson();
 
-                    Log.e("talep",gson.toJson(response.body().get(0)));
+                 //  Log.e("talep",gson.toJson(response.body().get(0)));
                     Log.e("date",""+new Date().toString());
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);

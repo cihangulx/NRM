@@ -8,12 +8,13 @@ import java.util.Date;
 
 
 public class Talep {
-    private String id;
+    private String _id;
     private String baslik;
     private String aciklama;
     private String gonderen;// Gönderen id
     private String alici; //alıcı id
     private Date tarih;
+    private String durum;
 
     /**
      *
@@ -34,12 +35,21 @@ public class Talep {
     public Talep() {
     }
 
+
+    public String getDurum() {
+        return durum;
+    }
+
+    public void setDurum(String durum) {
+        this.durum = durum;
+    }
+
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getBaslik() {

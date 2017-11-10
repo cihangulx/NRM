@@ -38,6 +38,13 @@ public interface Connect {
     Call<List<Talep>> getTalep(@Body RequestBody requestBody);
 
 
+    @POST("getTalepler"+ S.publickey)
+    Call<List<Talep>> getTalepler(@Body RequestBody requestBody);
+
+
+    @POST("updateTalep"+S.publickey)
+    Call<Talep> updateTalep(@Body RequestBody requestBody);
+
     /**
      *
      * @param userRequest //eposta ve şifre içerir

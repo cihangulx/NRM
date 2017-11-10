@@ -93,11 +93,10 @@
                 android:text="Açıklama" />
 
             <TextView
-                android:gravity="end"
                 android:id="@+id/talep_tarih"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:gravity="end" />
 
         </LinearLayout>
 
@@ -107,24 +106,24 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/reddet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
-                android:text="Arşivle"
+                android:background="#F44336"
+                android:text="Reddet"
                 android:textColor="@color/White" />
 
             <Button
-                android:layout_margin="10dp"
-                android:textColor="@color/White"
-                android:background="@color/colorPrimary"
-                android:layout_weight="1"
-                android:id="@+id/button2"
+                android:id="@+id/sonuclandir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Yönlendir" />
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="Sonuçlandır"
+                android:textColor="@color/White" />
 
         </LinearLayout>
     </LinearLayout>

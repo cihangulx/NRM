@@ -78,6 +78,7 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(activity,TalepDetay.class);
+                intent.putExtra("id",talep.getId());
                 intent.putExtra("baslik",talep.getBaslik());
                 intent.putExtra("aciklama",talep.getAciklama());
                 intent.putExtra("gonderen",talep.getGonderen());

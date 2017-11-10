@@ -21,9 +21,11 @@ import neonyazilim.com.nrm.Adapters.KullaniciAdapter;
 import neonyazilim.com.nrm.MainActivity;
 import neonyazilim.com.nrm.Models.Departman;
 import neonyazilim.com.nrm.Models.Kullanici;
+import neonyazilim.com.nrm.Models.RequestBody;
 import neonyazilim.com.nrm.Models.Talep;
 import neonyazilim.com.nrm.Network.Db;
 import neonyazilim.com.nrm.R;
+import neonyazilim.com.nrm.S;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,8 +35,6 @@ public class TalepOlustur extends AppCompatActivity {
     Spinner sp_departman, sp_alici;
 
     Button bt_gonder;
-
-    String[] kullanicilar = {"Mahmut Şehoğlu", "Ahmet Aşçı", "Tekin Şahin", "Yeliz Demirtaş", "Cihan Gül", "Mustafa"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class TalepOlustur extends AppCompatActivity {
             }
         });
 
-      //  getDepartman();
+        getDepartman();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class TalepOlustur extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-/*
+
     private void getDepartman() {
         Call<List<Departman>> call = Db.getConnect().getDepartman();
         call.enqueue(new Callback<List<Departman>>() {
@@ -104,7 +104,7 @@ public class TalepOlustur extends AppCompatActivity {
                     sp_departman.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            getUser(response.body().get(position));
+                            getUser(response.body());
                         }
 
                         @Override
@@ -123,8 +123,21 @@ public class TalepOlustur extends AppCompatActivity {
         });
     }
 
-    private void getUser(Departman departman) {
-        Call<List<Kullanici>> call = Db.getConnect().getUser(departman);
+    private void getUser(List<Departman> departman) {
+
+        RequestBody requestBody = new RequestBody();
+        requestBody.setUserId(S.userId);
+        requestBody.setToken(S.userToken);
+
+        String []departmanlar = new String[departman.size()];
+        for (int i=0;i<departman.size();i++){
+            departmanlar[i]=departman.get(i).getId();
+        }
+
+
+        requestBody.setDepartmanList(departmanlar);
+
+        Call<List<Kullanici>> call = Db.getConnect().getUser(requestBody);
         call.enqueue(new Callback<List<Kullanici>>() {
             @Override
             public void onResponse(Call<List<Kullanici>> call, Response<List<Kullanici>> response) {
@@ -140,7 +153,7 @@ public class TalepOlustur extends AppCompatActivity {
 
             }
         });
-    }*/
+    }
     private void sendTalep() {
         Kullanici kullanici = (Kullanici) sp_alici.getSelectedItem();
         Talep talep = new Talep(et_baslik.getText().toString(),
