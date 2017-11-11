@@ -129,9 +129,9 @@ public class TalepOlustur extends AppCompatActivity {
         requestBody.setUserId(S.userId);
         requestBody.setToken(S.userToken);
 
-        String []departmanlar = new String[departman.size()];
-        for (int i=0;i<departman.size();i++){
-            departmanlar[i]=departman.get(i).getId();
+        String[] departmanlar = new String[departman.size()];
+        for (int i = 0; i < departman.size(); i++) {
+            departmanlar[i] = departman.get(i).getId();
         }
 
 
@@ -143,24 +143,29 @@ public class TalepOlustur extends AppCompatActivity {
             public void onResponse(Call<List<Kullanici>> call, Response<List<Kullanici>> response) {
                 if (response.code() == 200) {
                     if (response.body().size() > 0) {
-                        KullaniciAdapter kullaniciAdapter = new KullaniciAdapter(TalepOlustur.this,response.body());
+                        KullaniciAdapter kullaniciAdapter = new KullaniciAdapter(TalepOlustur.this, response.body());
                         sp_alici.setAdapter(kullaniciAdapter);
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<List<Kullanici>> call, Throwable t) {
 
             }
         });
     }
+
     private void sendTalep() {
         Kullanici kullanici = (Kullanici) sp_alici.getSelectedItem();
-        Talep talep = new Talep(et_baslik.getText().toString(),
-                et_aciklama.getText().toString(),
-                sp_departman.getSelectedItem().toString(),
-                kullanici.getId(),
-                new Date());
+        Talep talep = new Talep();
+
+        talep.setBaslik(et_baslik.getText().toString());
+        talep.setAciklama(et_aciklama.getText().toString());
+        talep.setGonderen(S.userId);
+        talep.setAlici(kullanici.getId());
+        talep.setTarih(new Date());
+        talep.setDepartman(sp_departman.getSelectedItem().toString());
 
         Call<Talep> call = Db.getConnect().talepGonder(talep);
         call.enqueue(new Callback<Talep>() {
@@ -169,6 +174,7 @@ public class TalepOlustur extends AppCompatActivity {
 
                 if (response.code() == 200) {
                     Toast.makeText(TalepOlustur.this, "Talep Gönderildi", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(TalepOlustur.this, MainActivity.class));
                 }
             }
 

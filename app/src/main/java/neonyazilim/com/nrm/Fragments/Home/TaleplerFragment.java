@@ -74,6 +74,7 @@ public class TaleplerFragment extends Fragment {
                     Log.e("date",""+new Date().toString());
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
                     TalepAdapter talepAdapter = new TalepAdapter(response.body(), getActivity());
                     recyclerView.setLayoutManager(gridLayoutManager);
                     recyclerView.setAdapter(talepAdapter);

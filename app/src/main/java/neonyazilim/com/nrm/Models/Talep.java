@@ -15,6 +15,7 @@ public class Talep {
     private String alici; //alıcı id
     private Date tarih;
     private String durum;
+    private String departman;
 
     /**
      *
@@ -35,6 +36,13 @@ public class Talep {
     public Talep() {
     }
 
+    public String getDepartman() {
+        return departman;
+    }
+
+    public void setDepartman(String departman) {
+        this.departman = departman;
+    }
 
     public String getDurum() {
         return durum;

@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                      */
                 Toast.makeText(LoginActivity.this,"Şifre veya E-Posta Hatalı",Toast.LENGTH_LONG).show();
                 }else {
+                    Toast.makeText(LoginActivity.this,"Şifre veya E-Posta Hatalı",Toast.LENGTH_LONG).show();
                     /**
                      *
                      * Sayfa Bulunamadı Server aktif olmayabilir.
@@ -116,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                  * Giriş Başarısız
                  *
                  */
+                Toast.makeText(LoginActivity.this,"Şifre veya E-Posta Hatalı",Toast.LENGTH_LONG).show();
                 t.printStackTrace();
             }
         });

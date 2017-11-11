@@ -132,6 +132,7 @@ public class TalepDetay extends AppCompatActivity {
             public void onResponse(Call<Talep> call, Response<Talep> response) {
                 if (response.code()==200){
                     Log.e("codet",""+response.code());
+                    startActivity(new Intent(TalepDetay.this,MainActivity.class));
                 }
             }
 
@@ -140,6 +141,9 @@ public class TalepDetay extends AppCompatActivity {
 
             }
         });
+
+    }
+    private void getUser(){
 
     }
 

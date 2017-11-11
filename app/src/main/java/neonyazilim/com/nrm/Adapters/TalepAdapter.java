@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import neonyazilim.com.nrm.Activitys.TalepDetay;
@@ -51,26 +53,16 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
         final Talep talep = talepList.get(position);
 
         holder.talepBaslik.setText(talep.getBaslik());
-        if (talep.getAciklama().length()>12){
-        try {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(talep.getTarih());
+        int year = calendar.get(Calendar.YEAR);
+//Add one to month {0 - 11}
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            String aciklama =talep.getAciklama().substring(0,12)+"...";
-          //  holder.talepAciklama.setText(aciklama);
-        }catch (Exception e){
-            Log.e("e",e.getMessage());
-        }}else {
-           // holder.talepAciklama.setText(talep.getAciklama());
-        }
-        try {
-            String tarih =""+talep.getTarih().getDay()+"/"+talep.getTarih().getMonth()+"/"+talep.getTarih().getYear();
-            holder.talepTarih.setText(tarih);
-
-        }catch (Exception e){
-            holder.talepTarih.setText(""+talep.getTarih().toString());
-        }
-
+       holder.talepTarih.setText(""+day+"/"+month+"/"+year);
         holder.talepGonderenResim.setImageResource(R.drawable.ic_person_black_24dp);
-        holder.talep_gonderen.setText(talep.getGonderen());
+        holder.talep_gonderen.setText(talep.getDepartman());
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

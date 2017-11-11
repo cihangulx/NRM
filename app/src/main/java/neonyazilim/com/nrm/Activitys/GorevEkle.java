@@ -201,6 +201,7 @@ public class GorevEkle extends AppCompatActivity {
                     if (!response.body().getId().isEmpty()) {
                         //Görev eklendi
                         Log.e("gorev", "Görev eklendi");
+                        startActivity(new Intent(GorevEkle.this,MainActivity.class));
                     }
                 }
             }

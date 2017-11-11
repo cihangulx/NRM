@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -55,6 +56,8 @@ public class ProjeDetay extends AppCompatActivity {
     DonutProgress donutProgress;
     LinearLayout deparman_root, sorumlu_root, gorev_root;
 
+    TextView durum,gorev_sayisi,sorumlu_sayisi,departman_sayisi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,14 @@ public class ProjeDetay extends AppCompatActivity {
         departman_listview = (ListView) findViewById(R.id.departman_list_view);
         sorumlu_listview = (ListView) findViewById(R.id.sorumlu_list_view);
         gorevler_list_view = (ListView) findViewById(R.id.gorevler_list_view);
+
+        gorev_sayisi=findViewById(R.id.gorev_sayisi);
+        durum=findViewById(R.id.durum);
+        departman_sayisi=findViewById(R.id.departman_sayisi);
+        sorumlu_sayisi=findViewById(R.id.sorumlu_sayisi);
+
+
+
         try {
             final String stringProje = getIntent().getExtras().getString("proje");
             Gson gson = new Gson();
@@ -86,6 +97,8 @@ public class ProjeDetay extends AppCompatActivity {
 
             if (proje.getBaslik().length() > 8) {
                 setTitle(proje.getBaslik().substring(0, 11) + "...");
+            }else {
+                setTitle(proje.getBaslik());
             }
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(proje.getTarih());
@@ -102,9 +115,20 @@ public class ProjeDetay extends AppCompatActivity {
                     intent.putExtra("proje", stringProje);
                     startActivity(intent);*/
 
+            if (proje.getProgress()!=100){
+                durum.setText("Durum: "+"İşlemde");
+            }else {
+                durum.setText("Durum:"+"Tamamlandı");
+            }
+
             getDepartman();
             getSorumlular();
             getGorevler();
+
+
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,8 +156,15 @@ public class ProjeDetay extends AppCompatActivity {
                         }
                     }
 
+                    departman_sayisi.setText("Departman Sayısı: "+filtered.size());
                     DepartmanAdapter departmanAdapter = new DepartmanAdapter(ProjeDetay.this, filtered);
                     departman_listview.setAdapter(departmanAdapter);
+
+                    ViewGroup.LayoutParams params = departman_listview.getLayoutParams();
+                    params.height = (departman_listview.getAdapter().getCount()*140);
+                    departman_listview.setLayoutParams(params);
+                    departman_listview.requestLayout();
+
                 }
             }
 
@@ -169,9 +200,19 @@ public class ProjeDetay extends AppCompatActivity {
                             }
                         }
 
+
+
+                        sorumlu_sayisi.setText("Sorumlu Sayısı: "+filtered.size());
                         KullaniciAdapter kullaniciAdapter = new KullaniciAdapter(ProjeDetay.this, filtered);
 
                         sorumlu_listview.setAdapter(kullaniciAdapter);
+
+
+                        ViewGroup.LayoutParams params = sorumlu_listview.getLayoutParams();
+                        params.height = (sorumlu_listview.getAdapter().getCount()*140);
+                        sorumlu_listview.setLayoutParams(params);
+                        sorumlu_listview.requestLayout();
+
 
                     }
                 }
@@ -208,11 +249,19 @@ public class ProjeDetay extends AppCompatActivity {
                         GorevAdapter gorevAdapter = new GorevAdapter(ProjeDetay.this, response.body());
                         gorevler_list_view.setAdapter(gorevAdapter);
 
+                        ViewGroup.LayoutParams params = gorevler_list_view.getLayoutParams();
+                        params.height = (gorevler_list_view.getAdapter().getCount()*140);
+                        gorevler_list_view.setLayoutParams(params);
+                        gorevler_list_view.requestLayout();
 
+
+                        gorev_sayisi.setText("Görev Sayısı: "+response.body().size());
 
                         // Toast.makeText(GorevDetay.this,""+bolum,Toast.LENGTH_LONG).show();
                         donutProgress.setProgress(Math.round(sonuc));
                         updateProje((int) sonuc);
+                    }else {
+                        durum.setText("Durum: "+"Görev Eklenmesi Bekleniyor");
                     }
 
                 }
@@ -221,6 +270,7 @@ public class ProjeDetay extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Gorev>> call, Throwable t) {
                 Log.e("fail", t.getMessage());
+                durum.setText("Durum: "+"Görev Eklenmesi Bekleniyor");
             }
         });
     }

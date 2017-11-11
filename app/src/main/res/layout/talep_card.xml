@@ -8,8 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,13 +16,13 @@
             android:orientation="vertical">
 
             <com.github.siyamed.shapeimageview.CircularImageView
-                app:siBorderColor="@color/colorPrimary"
-                app:siBorderWidth="1dp"
-                android:layout_margin="10dp"
                 android:id="@+id/talep_resim"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                app:siBorderColor="@color/colorPrimary"
+                app:siBorderWidth="1dp" />
 
         </LinearLayout>
 
@@ -35,13 +34,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:textSize="12dp"
-                android:textStyle="bold"
                 android:id="@+id/talep_baslik"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:text="Talep Başlığı" />
+                android:text="Talep Başlığı"
+                android:textAlignment="center"
+                android:textSize="12dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,20 +49,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="11dp"
                     android:id="@+id/talep_gonderen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Gönderen:" />
+                    android:text="Gönderen:"
+                    android:textSize="11dp" />
 
                 <TextView
-                    android:textSize="11dp"
                     android:id="@+id/talep_tarih"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tarih/Saat" />
+                    android:text="Tarih/Saat"
+                    android:textSize="11dp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, TalepOlustur.class));
         } else if (id == R.id.action_add_user) {
             startActivity(new Intent(this, KullaniciEkle.class));
+        }else if (id==R.id.action_list_request){
+            startActivity(new Intent(MainActivity.this, TalepYonetimi.class));
         } else if (id == R.id.action_add_department) {
             startActivity(new Intent(this, DepartmanEkle.class));
         } else if (id == R.id.action_add_unvan) {
