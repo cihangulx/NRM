@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -77,13 +79,10 @@ public class TalepListAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity,TalepDetay.class);
-                intent.putExtra("id",talep.getId());
-                intent.putExtra("baslik",talep.getBaslik());
-                intent.putExtra("aciklama",talep.getAciklama());
-                intent.putExtra("gonderen",talep.getGonderen());
-                intent.putExtra("alici",talep.getAlici());
-                intent.putExtra("tarih",talep.getTarih());
+                Gson gson = new Gson();
+                String projeString = gson.toJson(talep);
+                Intent intent = new Intent(activity, TalepDetay.class);
+                intent.putExtra("talep", projeString);
                 activity.startActivity(intent);
             }
         });

@@ -26,103 +26,103 @@ public interface Connect {
 
 
     /**
-     *
      * @param requestBody //kullanıcı id ve token içerir
-     *
-     *Talepleri almak için kullanıcı idsi ve güvenlik için token gönderiyoruz
-     * eğer kullancı oturum açmış ise id ye göre talepler bulunup getirilecek. Oturum açılmamışsa hata mesajı döndürülecek.
-     *
-     *
+     *                    <p>
+     *                    Talepleri almak için kullanıcı idsi ve güvenlik için token gönderiyoruz
+     *                    eğer kullancı oturum açmış ise id ye göre talepler bulunup getirilecek. Oturum açılmamışsa hata mesajı döndürülecek.
      */
-    @POST("getTalep"+ S.publickey)
+    @POST("getTalep" + S.publickey)
     Call<List<Talep>> getTalep(@Body RequestBody requestBody);
 
 
-    @POST("getTalepler"+ S.publickey)
+    @POST("getTalepler" + S.publickey)
     Call<List<Talep>> getTalepler(@Body RequestBody requestBody);
 
 
-    @POST("updateTalep"+S.publickey)
+    @POST("updateTalep" + S.publickey)
     Call<Talep> updateTalep(@Body RequestBody requestBody);
 
     /**
-     *
      * @param userRequest //eposta ve şifre içerir
-     * Giriş yapma isteği gönderiyoruz ve geriye token değeri alıyoruz.
-     * Gelen tokeni localde saklıyoruz. Oturum kapatılana kadar bu token localde kayıtlı kalıyor.
-     *
+     *                    Giriş yapma isteği gönderiyoruz ve geriye token değeri alıyoruz.
+     *                    Gelen tokeni localde saklıyoruz. Oturum kapatılana kadar bu token localde kayıtlı kalıyor.
      */
-    @POST("login"+S.publickey)
+    @POST("login" + S.publickey)
     Call<UserResponse> loginRequest(@Body UserRequest userRequest);
 
 
-    @POST("logout"+S.publickey)
+    @POST("logout" + S.publickey)
     Call<UserResponse> logout(@Body RequestBody requestBody);
 
     /**
-     *
      * @param userResponse
-     * @return
-     *
-     * Oturum açtığımızda aldığımız token ile kullanıcı bilgilerini alıyoruz.
-     *
+     * @return Oturum açtığımızda aldığımız token ile kullanıcı bilgilerini alıyoruz.
      */
-    @POST("getKullanici"+S.publickey)
+    @POST("getKullanici" + S.publickey)
     Call<Kullanici> getKullanici(@Body UserResponse userResponse);
 
 
-    @POST("addUser"+S.publickey)
+    @POST("addUser" + S.publickey)
     Call<Kullanici> sendUser(@Body Kullanici kullanici);
 
 
-    @GET("getDepartman"+S.publickey)
+    @GET("getDepartman" + S.publickey)
     Call<List<Departman>> getDepartman();
 
-    @GET("getUnvan"+S.publickey)
+    @GET("getUnvan" + S.publickey)
     Call<List<Unvan>> getUnvan();
 
     /**
-     *
      * Departman eklemek için kullanılır
      *
      * @param departman başlık ve açıklama içerir
-     *
      */
-    @POST("departmanEkle"+S.publickey)
+    @POST("departmanEkle" + S.publickey)
     Call<Departman> departmanEkle(@Body Departman departman);
 
 
-    @POST("unvanEkle"+S.publickey)
+    @POST("unvanEkle" + S.publickey)
     Call<Unvan> unvanEkle(@Body Unvan unvan);
 
-    @POST("talepEkle"+S.publickey)
+    @POST("talepEkle" + S.publickey)
     Call<Talep> talepGonder(@Body Talep talep);
 
-    @POST("gorevEkle"+S.publickey)
+    @POST("gorevEkle" + S.publickey)
     Call<Gorev> gorevEkle(@Body Gorev gorev);
 
 
-    @POST("getUser"+S.publickey)
+    @POST("getUser" + S.publickey)
     Call<List<Kullanici>> getUser(@Body RequestBody departman);
 
-    @POST("getUsers"+S.publickey)
+    @POST("getUsers" + S.publickey)
     Call<List<Kullanici>> getUsers(@Body RequestBody departman);
 
-    @POST("sendProject"+S.publickey)
+    @POST("getUserss" + S.publickey)
+    Call<Kullanici> getUserss(@Body RequestBody departman);
+
+    @POST("sendProject" + S.publickey)
     Call<Proje> sendProject(@Body Proje proje);
 
-    @POST("getProjeler"+S.publickey)
+    @POST("getProjeler" + S.publickey)
     Call<List<Proje>> getProjeler(@Body RequestBody requestBody);
 
-    @POST("getGorevler"+S.publickey)
-    Call<List<Gorev>> getGorevler (@Body RequestBody requestBody);
+    @POST("getGorevler" + S.publickey)
+    Call<List<Gorev>> getGorevler(@Body RequestBody requestBody);
 
-    @POST("getGorevliler"+S.publickey)
+    @POST("getGorevliler" + S.publickey)
     Call<List<Kullanici>> getGorevliler(@Body RequestBody requestBody);
 
-    @POST("updateAdim"+S.publickey)
+    @POST("updateAdim" + S.publickey)
     Call<Gorev> updateGorev(@Body Gorev gorev);
 
+    @POST("projeyiSil" + S.publickey)
+    Call<Proje> projeyiSil(@Body RequestBody requestBody);
+
+    @POST("talebiSil" + S.publickey)
+    Call<Talep> talebiSil(@Body RequestBody requestBody);
+
+    @POST("projeyiGuncelle"+S.publickey)
+    Call<Proje> projeyiGuncelle(@Body Proje proje);
 
 
 }

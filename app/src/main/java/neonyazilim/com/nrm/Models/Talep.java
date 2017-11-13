@@ -1,6 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by cihan on 26.10.2017.
@@ -16,6 +17,7 @@ public class Talep {
     private Date tarih;
     private String durum;
     private String departman;
+    private List<Islem> islemler;
 
     /**
      *
@@ -34,6 +36,14 @@ public class Talep {
     }
 
     public Talep() {
+    }
+
+    public List<Islem> getIslemler() {
+        return islemler;
+    }
+
+    public void setIslemler(List<Islem> islemler) {
+        this.islemler = islemler;
     }
 
     public String getDepartman() {

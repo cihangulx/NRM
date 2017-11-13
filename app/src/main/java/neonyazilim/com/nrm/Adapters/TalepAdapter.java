@@ -2,20 +2,24 @@ package neonyazilim.com.nrm.Adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import neonyazilim.com.nrm.Activitys.ProjeDetay;
 import neonyazilim.com.nrm.Activitys.TalepDetay;
 import neonyazilim.com.nrm.Models.Talep;
 import neonyazilim.com.nrm.R;
@@ -65,17 +69,23 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
         holder.talep_gonderen.setText(talep.getDepartman());
 
 
+        if (talep.getDurum().equals("Reddedildi")){
+            holder.linear_root.setBackgroundColor(Color.parseColor("#FFEBEE"));
+
+        }else if (talep.getDurum().equals("Sonuçlandı")){
+            holder.linear_root.setBackgroundColor(Color.parseColor("#E0F2F1"));
+
+        }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(activity,TalepDetay.class);
-                intent.putExtra("id",talep.getId());
-                intent.putExtra("baslik",talep.getBaslik());
-                intent.putExtra("aciklama",talep.getAciklama());
-                intent.putExtra("gonderen",talep.getGonderen());
-                intent.putExtra("alici",talep.getAlici());
-                intent.putExtra("tarih",talep.getTarih());
+                Gson gson = new Gson();
+                String projeString = gson.toJson(talep);
+                Intent intent = new Intent(activity, TalepDetay.class);
+                intent.putExtra("talep", projeString);
                 activity.startActivity(intent);
             }
         });
@@ -91,6 +101,7 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
 }
 class TalepViewHolder extends RecyclerView.ViewHolder{
 
+    LinearLayout linear_root;
     ImageView talepGonderenResim;
     TextView talepBaslik,talepAciklama,talep_gonderen,talepTarih;
 
@@ -102,5 +113,6 @@ class TalepViewHolder extends RecyclerView.ViewHolder{
         talep_gonderen=(TextView)itemView.findViewById(R.id.talep_gonderen);
         talepTarih=(TextView)itemView.findViewById(R.id.talep_tarih);
         talepGonderenResim=(ImageView)itemView.findViewById(R.id.talep_resim);
+        linear_root=(LinearLayout)itemView.findViewById(R.id.linear_root);
     }
 }

@@ -1,10 +1,12 @@
 package neonyazilim.com.nrm.Activitys;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.gson.Gson;
@@ -46,6 +50,7 @@ import retrofit2.Response;
 
 import static neonyazilim.com.nrm.R.id.baslik;
 import static neonyazilim.com.nrm.R.id.sorumlu_list_view;
+import static neonyazilim.com.nrm.R.id.talep_aciklama;
 
 public class ProjeDetay extends AppCompatActivity {
 
@@ -56,7 +61,9 @@ public class ProjeDetay extends AppCompatActivity {
     DonutProgress donutProgress;
     LinearLayout deparman_root, sorumlu_root, gorev_root;
 
-    TextView durum,gorev_sayisi,sorumlu_sayisi,departman_sayisi;
+    TextView durum, gorev_sayisi, sorumlu_sayisi, departman_sayisi;
+    EditText et_aciklama, et_baslik;
+    Button guncelle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +85,14 @@ public class ProjeDetay extends AppCompatActivity {
         departman_listview = (ListView) findViewById(R.id.departman_list_view);
         sorumlu_listview = (ListView) findViewById(R.id.sorumlu_list_view);
         gorevler_list_view = (ListView) findViewById(R.id.gorevler_list_view);
+        et_aciklama = (EditText) findViewById(R.id.et_aciklama);
+        et_baslik = (EditText) findViewById(R.id.et_baslik);
 
-        gorev_sayisi=findViewById(R.id.gorev_sayisi);
-        durum=findViewById(R.id.durum);
-        departman_sayisi=findViewById(R.id.departman_sayisi);
-        sorumlu_sayisi=findViewById(R.id.sorumlu_sayisi);
-
-
+        gorev_sayisi = findViewById(R.id.gorev_sayisi);
+        durum = findViewById(R.id.durum);
+        departman_sayisi = findViewById(R.id.departman_sayisi);
+        sorumlu_sayisi = findViewById(R.id.sorumlu_sayisi);
+        guncelle = findViewById(R.id.guncelle);
 
         try {
             final String stringProje = getIntent().getExtras().getString("proje");
@@ -97,7 +105,7 @@ public class ProjeDetay extends AppCompatActivity {
 
             if (proje.getBaslik().length() > 8) {
                 setTitle(proje.getBaslik().substring(0, 11) + "...");
-            }else {
+            } else {
                 setTitle(proje.getBaslik());
             }
             Calendar calendar = new GregorianCalendar();
@@ -115,10 +123,10 @@ public class ProjeDetay extends AppCompatActivity {
                     intent.putExtra("proje", stringProje);
                     startActivity(intent);*/
 
-            if (proje.getProgress()!=100){
-                durum.setText("Durum: "+"İşlemde");
-            }else {
-                durum.setText("Durum:"+"Tamamlandı");
+            if (proje.getProgress() != 100) {
+                durum.setText("Durum: " + "İşlemde");
+            } else {
+                durum.setText("Durum:" + "Tamamlandı");
             }
 
             getDepartman();
@@ -126,14 +134,17 @@ public class ProjeDetay extends AppCompatActivity {
             getGorevler();
 
 
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+        guncelle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guncelle();
+            }
+        });
 
     }
 
@@ -156,12 +167,12 @@ public class ProjeDetay extends AppCompatActivity {
                         }
                     }
 
-                    departman_sayisi.setText("Departman Sayısı: "+filtered.size());
+                    departman_sayisi.setText("Departman Sayısı: " + filtered.size());
                     DepartmanAdapter departmanAdapter = new DepartmanAdapter(ProjeDetay.this, filtered);
                     departman_listview.setAdapter(departmanAdapter);
 
                     ViewGroup.LayoutParams params = departman_listview.getLayoutParams();
-                    params.height = (departman_listview.getAdapter().getCount()*140);
+                    params.height = (departman_listview.getAdapter().getCount() * 140);
                     departman_listview.setLayoutParams(params);
                     departman_listview.requestLayout();
 
@@ -201,15 +212,14 @@ public class ProjeDetay extends AppCompatActivity {
                         }
 
 
-
-                        sorumlu_sayisi.setText("Sorumlu Sayısı: "+filtered.size());
+                        sorumlu_sayisi.setText("Sorumlu Sayısı: " + filtered.size());
                         KullaniciAdapter kullaniciAdapter = new KullaniciAdapter(ProjeDetay.this, filtered);
 
                         sorumlu_listview.setAdapter(kullaniciAdapter);
 
 
                         ViewGroup.LayoutParams params = sorumlu_listview.getLayoutParams();
-                        params.height = (sorumlu_listview.getAdapter().getCount()*140);
+                        params.height = (sorumlu_listview.getAdapter().getCount() * 140);
                         sorumlu_listview.setLayoutParams(params);
                         sorumlu_listview.requestLayout();
 
@@ -234,34 +244,34 @@ public class ProjeDetay extends AppCompatActivity {
             public void onResponse(Call<List<Gorev>> call, Response<List<Gorev>> response) {
                 Log.e("code:", "" + response.code());
                 if (response.code() == 200) {
-                    if (response.body().size()>0){
-                        Log.e("res",response.body().get(0).getBaslik());
+                    if (response.body().size() > 0) {
+                        Log.e("res", response.body().get(0).getBaslik());
 
-                        double bolum =100f/response.body().size();
+                        double bolum = 100f / response.body().size();
                         double carpan = getTamamlananGorevler(response.body());
 
-                        float sonuc =new Float(bolum*carpan);
+                        float sonuc = new Float(bolum * carpan);
                         List<Gorev> gorevList = response.body();
 
-                        for (int i=0;i<response.body().size();i++){
-                            gorevList.get(i).setProjeProgress((int)sonuc);
+                        for (int i = 0; i < response.body().size(); i++) {
+                            gorevList.get(i).setProjeProgress((int) sonuc);
                         }
                         GorevAdapter gorevAdapter = new GorevAdapter(ProjeDetay.this, response.body());
                         gorevler_list_view.setAdapter(gorevAdapter);
 
                         ViewGroup.LayoutParams params = gorevler_list_view.getLayoutParams();
-                        params.height = (gorevler_list_view.getAdapter().getCount()*140);
+                        params.height = (gorevler_list_view.getAdapter().getCount() * 140);
                         gorevler_list_view.setLayoutParams(params);
                         gorevler_list_view.requestLayout();
 
 
-                        gorev_sayisi.setText("Görev Sayısı: "+response.body().size());
+                        gorev_sayisi.setText("Görev Sayısı: " + response.body().size());
 
                         // Toast.makeText(GorevDetay.this,""+bolum,Toast.LENGTH_LONG).show();
                         donutProgress.setProgress(Math.round(sonuc));
                         updateProje((int) sonuc);
-                    }else {
-                        durum.setText("Durum: "+"Görev Eklenmesi Bekleniyor");
+                    } else {
+                        durum.setText("Durum: " + "Görev Eklenmesi Bekleniyor");
                     }
 
                 }
@@ -270,17 +280,38 @@ public class ProjeDetay extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Gorev>> call, Throwable t) {
                 Log.e("fail", t.getMessage());
-                durum.setText("Durum: "+"Görev Eklenmesi Bekleniyor");
+                durum.setText("Durum: " + "Görev Eklenmesi Bekleniyor");
             }
         });
     }
 
-    private void updateProje(int sonuc){
+    private void updateProje(int sonuc) {
 
         Proje proje1 = proje;
         proje1.setProgress(sonuc);
 
 
+    }
+
+    private void projeYiSil() {
+        RequestBody requestBody = new RequestBody();
+        requestBody.setUserId(proje.getId());
+        Call<Proje> call = Db.getConnect().projeyiSil(requestBody);
+        call.enqueue(new Callback<Proje>() {
+            @Override
+            public void onResponse(Call<Proje> call, Response<Proje> response) {
+                Log.e("sil", "" + response.code());
+                if (response.code() == 200) {
+                    Toast.makeText(ProjeDetay.this, "Proje Silindi", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ProjeDetay.this, MainActivity.class));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Proje> call, Throwable t) {
+                Log.e("fail", t.getMessage());
+            }
+        });
 
     }
 
@@ -314,19 +345,70 @@ public class ProjeDetay extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             NavUtils.navigateUpTo(this, intent);
             return true;
-        }
+        } else if (id == R.id.action_delete) {
 
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage("Projeyi Silmek İstediğinize Emin misiniz ? Bu işlem geri alınamaz.");
+            dialog.setCancelable(false);
+            dialog.setPositiveButton("Sil", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    projeYiSil();
+                }
+            });
+            dialog.setNegativeButton("Geri", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            dialog.create().show();
+        } else if (id == R.id.action_edit) {
+            et_aciklama.setVisibility(View.VISIBLE);
+            et_baslik.setVisibility(View.VISIBLE);
+            et_aciklama.setText(proje.getAciklama());
+            projeAciklama.setVisibility(View.GONE);
+            projeBaslik.setVisibility(View.GONE);
+            et_baslik.setText(proje.getBaslik());
+            guncelle.setVisibility(View.VISIBLE);
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private int getTamamlananGorevler(List<Gorev> gorevList){
-        int tamamlanan =0;
-        for (int i =0;i<gorevList.size();i++){
-            if (gorevList.get(i).getProgress()>99){
+    private int getTamamlananGorevler(List<Gorev> gorevList) {
+        int tamamlanan = 0;
+        for (int i = 0; i < gorevList.size(); i++) {
+            if (gorevList.get(i).getProgress() > 99) {
                 tamamlanan++;
             }
         }
         return tamamlanan;
+    }
+
+    private void guncelle(){
+
+        Proje proje1 = proje;
+        proje1.setBaslik(et_baslik.getText().toString());
+        proje1.setAciklama(et_aciklama.getText().toString());
+
+        Call<Proje> call = Db.getConnect().projeyiGuncelle(proje1);
+        call.enqueue(new Callback<Proje>() {
+            @Override
+            public void onResponse(Call<Proje> call, Response<Proje> response) {
+                if (response.code()==200){
+                    Toast.makeText(ProjeDetay.this,"Proje Güncellendi",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Proje> call, Throwable t) {
+
+            }
+        });
+
+
+
+
     }
 }

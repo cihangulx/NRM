@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sonuclandir"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:orderInCategory="100"
+        android:title="Sonuçlandır"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_reddet"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        android:orderInCategory="100"
+        android:title="Reddet" />
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@drawable/ic_add_circle"
+        android:orderInCategory="100"
+        android:title="Talebi Sil" />
+
+</menu>

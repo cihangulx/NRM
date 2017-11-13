@@ -64,9 +64,6 @@ public class ProjelerFragment extends Fragment {
 
                         List<Proje> projeList = response.body();
 
-
-
-
                         ProjeAdapter projeAdapter = new ProjeAdapter(getActivity(),response.body());
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(gridLayoutManager);

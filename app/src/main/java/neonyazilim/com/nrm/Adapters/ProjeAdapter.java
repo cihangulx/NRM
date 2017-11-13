@@ -18,8 +18,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import neonyazilim.com.nrm.Activitys.ProjeDetay;
+import neonyazilim.com.nrm.Models.Gorev;
 import neonyazilim.com.nrm.Models.Proje;
+import neonyazilim.com.nrm.Models.RequestBody;
+import neonyazilim.com.nrm.Network.Db;
 import neonyazilim.com.nrm.R;
+import retrofit2.Call;
 
 /**
  * Created by cihan on 26.10.2017.
@@ -69,6 +73,7 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
             holder.progress.setTextColor(Color.parseColor("#FF9800"));
         }
 
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +101,8 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
     public int getItemCount() {
         return projeList.size();
     }
+
+
 
 }
 
