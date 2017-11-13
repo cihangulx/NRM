@@ -116,6 +116,7 @@
                     android:orientation="vertical">
 
                     <ListView
+                        android:nestedScrollingEnabled="true"
                         android:id="@+id/islem_list_view"
                         android:layout_width="match_parent"
                         android:layout_height="184dp"
