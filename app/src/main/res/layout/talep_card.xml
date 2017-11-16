@@ -50,19 +50,24 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_margin="5dp"
                     android:id="@+id/talep_gonderen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1"
-                    android:text="Gönderen:"
-                    android:textSize="11dp" />
+                    android:padding="3dp"
+                    android:textColor="@color/White"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/talep_tarih"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Tarih/Saat"
+                    android:textAlignment="viewEnd"
                     android:textSize="11dp" />
             </LinearLayout>
 

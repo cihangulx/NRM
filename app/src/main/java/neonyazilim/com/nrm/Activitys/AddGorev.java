@@ -216,8 +216,12 @@ public class AddGorev extends AppCompatActivity {
                         //Görev eklendi
                         Log.e("gorev", "Görev eklendi");
                         Toast.makeText(AddGorev.this,"Görev Eklendi",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        NavUtils.navigateUpTo(AddGorev.this, intent);
+                        Gson gson = new Gson();
+                        String projeString = gson.toJson(proje);
+                        Intent intent = new Intent(AddGorev.this, ProjeDetay.class);
+                        intent.putExtra("proje", projeString);
+                        startActivity(intent);
+                        NavUtils.navigateUpTo(AddGorev.this , intent);
                     }
                 }
             }
@@ -249,7 +253,11 @@ public class AddGorev extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Gson gson = new Gson();
+            String projeString = gson.toJson(proje);
+            Intent intent = new Intent(this, ProjeDetay.class);
+            intent.putExtra("proje", projeString);
+            startActivity(intent);
             NavUtils.navigateUpTo(this, intent);
             return true;
         }

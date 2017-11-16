@@ -124,5 +124,10 @@ public interface Connect {
     @POST("projeyiGuncelle"+S.publickey)
     Call<Proje> projeyiGuncelle(@Body Proje proje);
 
+    @POST("projeyeDepartmanEkle"+S.publickey)
+    Call<Proje> projeyeDepartmanEkle(@Body RequestBody requestBody);
+
+    @POST("projeyeSorumluEkle"+S.publickey)
+    Call<Proje> projeyeSorumluEkle(@Body RequestBody requestBody);
 
 }

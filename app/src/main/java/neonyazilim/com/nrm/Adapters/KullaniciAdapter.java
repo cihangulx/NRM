@@ -54,14 +54,13 @@ public class KullaniciAdapter extends BaseAdapter {
         LinearLayout linear_root = view.findViewById(R.id.linear_root);
 
 
-        if (position %2==0){
-            linear_root.setBackgroundColor(Color.parseColor("#F5F5F5"));
-        }
-
         TextView baslik = view.findViewById(R.id.baslik);
         TextView unvan =view.findViewById(R.id.unvan);
         baslik.setText(kullaniciList.get(position).getIsim()+" "+kullaniciList.get(position).getSoyIsim());
         unvan.setText(kullaniciList.get(position).getUnvan());
+
+
+
         return view;
     }
 }

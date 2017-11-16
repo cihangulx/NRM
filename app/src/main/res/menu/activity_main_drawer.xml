@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_list_black_24dp"
             android:title="Talep Yönetimi" />
         <item
+            android:id="@+id/action_taleplerim"
+            android:icon="@drawable/ic_list_black_24dp"
+            android:title="Taleplerim" />
+        <item
             android:id="@+id/action_add_department"
             android:icon="@drawable/ic_folder_shared_black_24dp"
             android:title="Departman Ekle" />

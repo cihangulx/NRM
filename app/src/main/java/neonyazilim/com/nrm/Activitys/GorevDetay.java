@@ -42,6 +42,7 @@ public class GorevDetay extends AppCompatActivity {
     ListView gorevli_listview, adim_listview;
 
     Gorev gorev;
+    Proje proje;
 
     DonutProgress donutProgress;
 
@@ -75,6 +76,10 @@ public class GorevDetay extends AppCompatActivity {
             if (gorev.getBaslik().length() > 8) {
                 setTitle(gorev.getBaslik().substring(0, 11) + "...");
             }
+
+            final String stringProje = getIntent().getExtras().getString("proje");
+            Gson gson1 = new Gson();
+            proje = gson1.fromJson(stringProje, Proje.class);
 
             Log.e("gorev",stringGorev);
            /* Calendar calendar = new GregorianCalendar();
@@ -138,7 +143,11 @@ public class GorevDetay extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Gson gson = new Gson();
+            String projeString = gson.toJson(proje);
+            Intent intent = new Intent(this, ProjeDetay.class);
+            intent.putExtra("proje", projeString);
+            startActivity(intent);
             NavUtils.navigateUpTo(this, intent);
             return true;
         }

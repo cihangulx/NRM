@@ -18,6 +18,7 @@ import java.util.List;
 import neonyazilim.com.nrm.Activitys.GorevDetay;
 import neonyazilim.com.nrm.Activitys.ProjeDetay;
 import neonyazilim.com.nrm.Models.Gorev;
+import neonyazilim.com.nrm.Models.Proje;
 import neonyazilim.com.nrm.R;
 
 /**
@@ -29,11 +30,13 @@ public class GorevAdapter extends BaseAdapter {
     Activity activity;
     List<Gorev> gorevList;
     LayoutInflater layoutInflater;
+    Proje proje;
 
-    public GorevAdapter(Activity activity, List<Gorev> gorevList) {
+    public GorevAdapter(Activity activity, List<Gorev> gorevList, Proje proje) {
         this.activity = activity;
         this.gorevList = gorevList;
         layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.proje=proje;
     }
 
     @Override
@@ -69,6 +72,10 @@ public class GorevAdapter extends BaseAdapter {
                 Gson gson = new Gson();
                 String gorevString = gson.toJson(gorevList.get(position));
                 intent.putExtra("gorev", gorevString);
+                Gson gson1 = new Gson();
+                String projeString = gson1.toJson(proje);
+                intent.putExtra("proje", projeString);
+
                 activity.startActivity(intent);
             }
         });

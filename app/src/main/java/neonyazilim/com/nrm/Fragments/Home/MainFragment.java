@@ -1,18 +1,23 @@
 package neonyazilim.com.nrm.Fragments.Home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import neonyazilim.com.nrm.Activitys.LoginActivity;
+import neonyazilim.com.nrm.Activitys.SplashScreen;
 import neonyazilim.com.nrm.R;
 
 /**
@@ -29,8 +34,7 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_fragment,container,false);
-
+        View view = inflater.inflate(R.layout.main_fragment, container, false);
 
 
         tabHost = (TabHost) view.findViewById(R.id.tabhost);
@@ -63,18 +67,18 @@ public class MainFragment extends Fragment {
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                int i=tabHost.getCurrentTab();
+                int i = tabHost.getCurrentTab();
 
                 TextView tv = (TextView) tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
                 TextView tv1 = (TextView) tabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
 
-                viewPager.setCurrentItem(i,true);
-                if (i==0){
+                viewPager.setCurrentItem(i, true);
+                if (i == 0) {
                     tv.setTextColor(getResources().getColor(R.color.White));
                     tv1.setTextColor(Color.parseColor("#424242"));
 
 
-                }else if (i==1){
+                } else if (i == 1) {
                     tv.setTextColor(Color.parseColor("#424242"));
                     tv1.setTextColor(getResources().getColor(R.color.White));
 
@@ -98,6 +102,7 @@ public class MainFragment extends Fragment {
 
         return view;
     }
+
     private class Adapter extends FragmentPagerAdapter {
         public Adapter(FragmentManager fm) {
             super(fm);
@@ -119,4 +124,22 @@ public class MainFragment extends Fragment {
             return 2;
         }
     }
+
+    public void changeTab() {
+
+        Log.e("tab","changeTab()");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("repeat","repeat");
+                    viewPager.setCurrentItem(1);
+                    if (viewPager.getCurrentItem()!=1){
+                        changeTab();
+                    }
+
+                }
+            }, 500);
+
+    }
+
 }

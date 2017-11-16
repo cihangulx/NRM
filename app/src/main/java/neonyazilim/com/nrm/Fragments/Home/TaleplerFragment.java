@@ -39,12 +39,13 @@ public class TaleplerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.talepler_fragment, container, false);
         Log.e("talep","onCreateView");
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         return view;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+
         Log.e("talep","onViewCreated");
       //  setTalep();
         getTalep();

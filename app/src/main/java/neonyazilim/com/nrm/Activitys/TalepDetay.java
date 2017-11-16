@@ -54,10 +54,7 @@ public class TalepDetay extends AppCompatActivity {
 
     ImageView talepGonderenResim;
     TextView talepBaslik, talepAciklama, talep_gonderen, talepTarih, talep_gonderen_unvan;
-
-
     ListView islem_list_view;
-
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -157,7 +154,7 @@ public class TalepDetay extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.talep_detay_menu, menu);
+        getMenuInflater().inflate(R.menu.talep_detay_bottom_menu, menu);
         return true;
     }
 
@@ -168,32 +165,43 @@ public class TalepDetay extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_sonuclandir) {
-            showDialog("Sonuçlandır", "Sonuçlandı");
-        } else if (id == R.id.action_reddet) {
-            showDialog("Sonuçlandır", "Sonuçlandı");
-        } else if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            NavUtils.navigateUpTo(this, intent);
-            return true;
-        } else if (id == R.id.action_delete) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.setMessage("Talebi Silmek İstediğinize Emin misiniz ? Bu işlem geri alınamaz.");
-            dialog.setCancelable(false);
-            dialog.setPositiveButton("Sil", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    talebiSil();
-                }
-            });
-            dialog.setNegativeButton("Geri", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            dialog.create().show();
+        switch (item.getItemId()) {
+            case R.id.action_sonuclandir:
+                showDialog("Sonuçlandır", "Sonuçlandı");
+                break;
+            case R.id.action_reddet:
+                showDialog("Reddet", "Reddedildi");
+                break;
+            case R.id.action_restore:
+                showDialog("Düzeltme İste", "Düzeltme İstendi");
+                break;
+            case R.id.action_isleme_al:
+                showDialog("İşleme Geri Al", "İşlemde");
+                break;
+            case R.id.action_delete:
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(TalepDetay.this);
+                dialog.setMessage("Talebi Silmek İstediğinize Emin misiniz ?\nBu işlem geri alınamaz.");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("Sil", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        talebiSil();
+                    }
+                });
+                dialog.setNegativeButton("Geri", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.create().show();
+                break;
+            case android.R.id.home:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                NavUtils.navigateUpTo(this, intent);
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -216,7 +224,7 @@ public class TalepDetay extends AppCompatActivity {
         islem.setIslemAciklamasi(aciklama);
         islem.setIslemOncesiDurum(talep.getDurum());
 
-        List<Islem> islemler = new ArrayList<>();
+        final List<Islem> islemler = new ArrayList<>();
         islemler.add(islem);
         requestBody.setIslem(islemler);
 
@@ -226,7 +234,22 @@ public class TalepDetay extends AppCompatActivity {
             public void onResponse(Call<Talep> call, Response<Talep> response) {
                 if (response.code() == 200) {
                     Log.e("codet", "" + response.code());
-                    startActivity(new Intent(TalepDetay.this, TalepYonetimi.class));
+                    Toast.makeText(TalepDetay.this, "Talep Güncellendi", Toast.LENGTH_SHORT).show();
+
+                   /* Gson gson = new Gson();
+                    String projeString = gson.toJson(response.body());
+                    Intent intent = new Intent(TalepDetay.this, TalepDetay.class);
+                    intent.putExtra("talep", projeString);
+                    startActivity(intent);*/
+
+                   List<Islem> newList = talep.getIslemler();
+                    newList.addAll(islemler);
+
+                    IslemAdapter islemAdapter = new IslemAdapter(TalepDetay.this,newList);
+                    islem_list_view.setAdapter(islemAdapter);
+
+                    islem_list_view.setSelection(islemAdapter.getCount()-1);
+
                 }
             }
 
@@ -319,13 +342,14 @@ public class TalepDetay extends AppCompatActivity {
 
                         String aciklama = message.getText().toString().trim();
                         updateTalep(islem, aciklama);
+                        alertDialog.cancel();
                     } else {
                         if (message.getText().toString().isEmpty()) {
                             // message.setError("Açıklama Alanı Zorunludur.");
                             //  YoYo.with(Techniques.Shake).duration(500).playOn(message);
                             String aciklama = "Açıklama Eklenmedi!";
                             updateTalep(islem, aciklama);
-
+                            alertDialog.cancel();
                         } else {
 
                         }

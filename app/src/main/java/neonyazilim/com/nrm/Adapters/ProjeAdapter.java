@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,10 @@ import neonyazilim.com.nrm.Models.Proje;
 import neonyazilim.com.nrm.Models.RequestBody;
 import neonyazilim.com.nrm.Network.Db;
 import neonyazilim.com.nrm.R;
+import neonyazilim.com.nrm.S;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by cihan on 26.10.2017.
@@ -47,10 +51,10 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ProjeViewHolder holder, int position) {
+    public void onBindViewHolder(final ProjeViewHolder holder, int position) {
         final Proje proje = projeList.get(position);
 
-        holder.progress.setText("%" + proje.getProgress());
+
         holder.proje_baslik.setText(""+proje.getBaslik());
         holder.proje_aciklama.setText(""+proje.getAciklama());
         String tarih = proje.getTarih().getDay()+"/"+proje.getTarih().getMonth()+"/"+proje.getTarih().getYear();
@@ -65,13 +69,53 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
         holder.proje_tarih.setText(""+day+"/"+month+"/"+year);
 
 
-        if (proje.getProgress() > 39) {
-            holder.progress.setTextColor(Color.parseColor("#4CAF50"));
-        } else if (proje.getProgress() < 21) {
-            holder.progress.setTextColor(Color.RED);
-        } else if (proje.getProgress() == 30) {
-            holder.progress.setTextColor(Color.parseColor("#FF9800"));
-        }
+        RequestBody requestBody = new RequestBody(proje.getId(), S.userToken);
+
+        Call<List<Gorev>> call = Db.getConnect().getGorevler(requestBody);
+        call.enqueue(new Callback<List<Gorev>>() {
+            @Override
+            public void onResponse(Call<List<Gorev>> call, Response<List<Gorev>> response) {
+               Log.e("code:", "" + response.code());
+                if (response.code() == 200) {
+                    if (response.body().size() > 0) {
+                        Log.e("res", response.body().get(0).getBaslik());
+
+                        double bolum = 100f / response.body().size();
+                        double carpan = getTamamlananGorevler(response.body());
+
+                        float sonuc = new Float(bolum * carpan);
+
+                        if (sonuc<30){
+                            holder.progress.setTextColor(Color.RED);
+                        }else if (sonuc<50){
+                            holder.progress.setTextColor(Color.parseColor("#FF9800"));
+                        }else if (sonuc<65){
+                            holder.progress.setTextColor(Color.parseColor("#8BC34A"));
+                        }else if (sonuc<80){
+                            holder.progress.setTextColor(Color.parseColor("#7CB342"));
+                        }else {
+                            holder.progress.setTextColor(Color.parseColor("#4CAF50"));
+                        }
+                        holder.progress.setText("%"+Math.round(sonuc));
+
+                    } else {
+                        holder.progress.setText("%0.0");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Gorev>> call, Throwable t) {
+                Log.e("fail", t.getMessage());
+              holder.progress.setText("%0.0");
+            }
+        });
+
+
+
+
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +147,15 @@ public class ProjeAdapter extends RecyclerView.Adapter<ProjeViewHolder> {
     }
 
 
+    private int getTamamlananGorevler(List<Gorev> gorevList) {
+        int tamamlanan = 0;
+        for (int i = 0; i < gorevList.size(); i++) {
+            if (gorevList.get(i).getProgress() > 99) {
+                tamamlanan++;
+            }
+        }
+        return tamamlanan;
+    }
 
 }
 

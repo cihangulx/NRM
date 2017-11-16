@@ -1,7 +1,7 @@
 package neonyazilim.com.nrm;
 
 /**
- * Created by tuzlabim on 26.10.2017.
+ * Created by cihan on 26.10.2017.
  */
 
 public class S {

@@ -83,37 +83,41 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/deparman_root"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_weight="0.4"
+                        android:orientation="vertical">
 
                         <Spinner
                             android:id="@+id/sp_gorevli"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.95"
+                        android:orientation="vertical">
 
                         <Button
                             android:id="@+id/bt_gorevli_ekle"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
-                            android:background="@drawable/ic_add_circle" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="7dp"
+                            android:background="@drawable/ekle_back"
+                            android:text="Ekle"
+                            android:textColor="@android:color/white" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -152,7 +156,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -172,15 +176,20 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <Button
                             android:id="@+id/bt_adim_ekle"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
-                            android:background="@drawable/ic_add_circle" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="7dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/ekle_back"
+                            android:text="Ekle"
+                            android:textColor="@android:color/white" />
+
                     </LinearLayout>
 
                 </LinearLayout>

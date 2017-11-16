@@ -201,7 +201,11 @@ public class GorevEkle extends AppCompatActivity {
                     if (!response.body().getId().isEmpty()) {
                         //Görev eklendi
                         Log.e("gorev", "Görev eklendi");
-                        startActivity(new Intent(GorevEkle.this,MainActivity.class));
+                        Gson gson = new Gson();
+                        String projeString = gson.toJson(proje);
+                        Intent intent = new Intent(GorevEkle.this, ProjeDetay.class);
+                        intent.putExtra("proje", projeString);
+                        startActivity(intent);
                     }
                 }
             }
@@ -229,9 +233,11 @@ public class GorevEkle extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            NavUtils.navigateUpTo(this, intent);
-            return true;
+            Gson gson = new Gson();
+            String projeString = gson.toJson(proje);
+            Intent intent = new Intent(GorevEkle.this, ProjeDetay.class);
+            intent.putExtra("proje", projeString);
+            startActivity(intent);
         }
 
 

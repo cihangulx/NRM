@@ -41,9 +41,9 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
     @Override
     public TalepViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.talep_card,parent,false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.talep_card, parent, false);
 
-        TalepViewHolder talepViewHolder =new TalepViewHolder(view);
+        TalepViewHolder talepViewHolder = new TalepViewHolder(view);
 
         talepViewHolder.setIsRecyclable(false);
 
@@ -64,17 +64,20 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-       holder.talepTarih.setText(""+day+"/"+month+"/"+year);
+        holder.talepTarih.setText("" + day + "/" + month + "/" + year);
         holder.talepGonderenResim.setImageResource(R.drawable.ic_person_black_24dp);
-        holder.talep_gonderen.setText(talep.getDepartman());
+        holder.talep_gonderen.setText(talep.getDurum());
 
 
-        if (talep.getDurum().equals("Reddedildi")){
-            holder.linear_root.setBackgroundColor(Color.parseColor("#FFEBEE"));
-
-        }else if (talep.getDurum().equals("Sonuçlandı")){
-            holder.linear_root.setBackgroundColor(Color.parseColor("#E0F2F1"));
-
+        if (talep.getDurum().equals("Reddedildi")) {
+            holder.talep_gonderen.setBackgroundResource(R.drawable.red_back);
+        } else if (talep.getDurum().equals("Sonuçlandı")) {
+            holder.talep_gonderen.setBackgroundResource(R.drawable.green_back);
+        } else if (talep.getDurum().equals("İşlemde")) {
+            holder.talep_gonderen.setBackgroundResource(R.drawable.orange_back);
+        } else if (talep.getDurum().equals("Düzeltme İstendi")) {
+            holder.talep_gonderen.setBackgroundResource(R.drawable.brown_back);
+            holder.talepTarih.setText(""+day+"/"+month+"/"+Integer.toString(year).substring(2,4));
         }
 
 
@@ -91,7 +94,6 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
         });
 
 
-
     }
 
     @Override
@@ -99,20 +101,21 @@ public class TalepAdapter extends RecyclerView.Adapter<TalepViewHolder> {
         return talepList.size();
     }
 }
-class TalepViewHolder extends RecyclerView.ViewHolder{
+
+class TalepViewHolder extends RecyclerView.ViewHolder {
 
     LinearLayout linear_root;
     ImageView talepGonderenResim;
-    TextView talepBaslik,talepAciklama,talep_gonderen,talepTarih;
+    TextView talepBaslik, talepAciklama, talep_gonderen, talepTarih;
 
     public TalepViewHolder(View itemView) {
         super(itemView);
 
-        talepBaslik=(TextView)itemView.findViewById(R.id.talep_baslik);
-       //talepAciklama=(TextView)itemView.findViewById(R.id.talep_aciklama);
-        talep_gonderen=(TextView)itemView.findViewById(R.id.talep_gonderen);
-        talepTarih=(TextView)itemView.findViewById(R.id.talep_tarih);
-        talepGonderenResim=(ImageView)itemView.findViewById(R.id.talep_resim);
-        linear_root=(LinearLayout)itemView.findViewById(R.id.linear_root);
+        talepBaslik = (TextView) itemView.findViewById(R.id.talep_baslik);
+        //talepAciklama=(TextView)itemView.findViewById(R.id.talep_aciklama);
+        talep_gonderen = (TextView) itemView.findViewById(R.id.talep_gonderen);
+        talepTarih = (TextView) itemView.findViewById(R.id.talep_tarih);
+        talepGonderenResim = (ImageView) itemView.findViewById(R.id.talep_resim);
+        linear_root = (LinearLayout) itemView.findViewById(R.id.linear_root);
     }
 }

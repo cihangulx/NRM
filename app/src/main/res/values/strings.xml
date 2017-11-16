@@ -8,4 +8,8 @@
     <string name="title_activity_talep_detay">TalepDetay</string>
     <string name="title_activity_proje_detay">ProjeDetay</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_taleplerim">Taleplerim</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

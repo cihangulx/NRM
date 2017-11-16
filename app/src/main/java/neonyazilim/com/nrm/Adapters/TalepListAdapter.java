@@ -2,13 +2,17 @@ package neonyazilim.com.nrm.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import neonyazilim.com.nrm.Activitys.TalepDetay;
+import neonyazilim.com.nrm.Activitys.TalepYonetimi;
 import neonyazilim.com.nrm.Models.Talep;
 import neonyazilim.com.nrm.R;
 
@@ -62,7 +67,7 @@ public class TalepListAdapter extends BaseAdapter {
         TextView baslik = view.findViewById(R.id.baslik);
         TextView durum = view.findViewById(R.id.durum);
         TextView tarih =view.findViewById(R.id.tarih);
-        TextView gonderen =view.findViewById(R.id.gonderen);
+      //  TextView gonderen =view.findViewById(R.id.gonderen);
         baslik.setText(talepList.get(position).getBaslik());
         durum.setText(talepList.get(position).getDurum());
 
@@ -87,6 +92,62 @@ public class TalepListAdapter extends BaseAdapter {
             }
         });
 
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(activity,v);
+                popupMenu.getMenuInflater().inflate(R.menu.talep_detay_bottom_menu,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        final TalepYonetimi talepYonetimi = (TalepYonetimi) activity;
+
+                        switch (item.getItemId()) {
+                            case R.id.action_sonuclandir:
+                                talepYonetimi.showDialog(talep,"Sonuçlandır", "Sonuçlandı");
+                                break;
+                            case R.id.action_reddet:
+                                talepYonetimi.showDialog(talep,"Reddet", "Reddedildi");
+                                break;
+                            case R.id.action_restore:
+                                talepYonetimi.showDialog(talep,"Düzeltme İste", "Düzeltme İstendi");
+                                break;
+                            case R.id.action_isleme_al:
+                                talepYonetimi.showDialog(talep,"İşleme Geri Al", "İşlemde");
+                                break;
+                            case R.id.action_delete:
+
+                                AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+                                dialog.setMessage("Talebi Silmek İstediğinize Emin misiniz ?\nBu işlem geri alınamaz.");
+                                dialog.setCancelable(false);
+                                dialog.setPositiveButton("Sil", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        talepYonetimi.talebiSil(talep);
+                                    }
+                                });
+                                dialog.setNegativeButton("Geri", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                dialog.create().show();
+                                break;
+
+                        }
+
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+                return true;
+            }
+        });
+
+
+
 
         //gonderen.setText(talepList.get(position).getGonderen());
         Calendar calendar = new GregorianCalendar();
@@ -100,4 +161,5 @@ public class TalepListAdapter extends BaseAdapter {
 
         return view;
     }
+
 }

@@ -2,20 +2,27 @@ package neonyazilim.com.nrm.Activitys;
 
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -27,6 +34,7 @@ import neonyazilim.com.nrm.Adapters.TalepAdapter;
 import neonyazilim.com.nrm.Adapters.TalepListAdapter;
 import neonyazilim.com.nrm.MainActivity;
 import neonyazilim.com.nrm.Models.Departman;
+import neonyazilim.com.nrm.Models.Islem;
 import neonyazilim.com.nrm.Models.RequestBody;
 import neonyazilim.com.nrm.Models.Talep;
 import neonyazilim.com.nrm.Network.Db;
@@ -176,7 +184,6 @@ public class TalepYonetimi extends AppCompatActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -213,5 +220,135 @@ public class TalepYonetimi extends AppCompatActivity {
 
 
     }
+
+
+    public void updateTalep(Talep talep,String durum, String aciklama) {
+
+        RequestBody requestBody = new RequestBody(S.userId, S.userToken);
+        requestBody.setDurum(durum);
+        String[] ids = {talep.getId()};
+        requestBody.setDepartmanList(ids);
+
+        Islem islem = new Islem();
+
+
+        islem.setIslem(durum);
+        islem.setIslemiYapan(S.userId);
+        islem.setIslemTarihi(new Date());
+        islem.setIslemAciklamasi(aciklama);
+        islem.setIslemOncesiDurum(talep.getDurum());
+
+        List<Islem> islemler = new ArrayList<>();
+        islemler.add(islem);
+        requestBody.setIslem(islemler);
+
+        Call<Talep> call = Db.getConnect().updateTalep(requestBody);
+        call.enqueue(new Callback<Talep>() {
+            @Override
+            public void onResponse(Call<Talep> call, Response<Talep> response) {
+                if (response.code() == 200) {
+                    Log.e("codet", "" + response.code());
+                   // startActivity(new Intent(TalepYonetimi.this, TalepYonetimi.class));
+                    recreate();
+                    Toast.makeText(TalepYonetimi.this,"Talep Güncellendi",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Talep> call, Throwable t) {
+
+            }
+        });
+
+    }
+    public void showDialog(final Talep talep, String mBaslik, final String islem) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null);
+        TextView baslik = view.findViewById(R.id.baslik);
+        final EditText message = view.findViewById(R.id.messagem);
+        Button iptal = view.findViewById(R.id.iptal);
+        Button gonder = view.findViewById(R.id.gonder);
+
+        alertDialogBuilder.setView(view);
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        baslik.setText(mBaslik + "!");
+        iptal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.cancel();
+            }
+        });
+
+        gonder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+
+                    if (!islem.equals("Sonuçlandı ")) {
+                        if (message.getText().toString().isEmpty()) {
+                            message.setError("Açıklama Alanı Zorunludur.");
+                            YoYo.with(Techniques.Shake).duration(500).playOn(message);
+                            return;
+                        } else {
+
+                        }
+
+                        String aciklama = message.getText().toString().trim();
+                        updateTalep(talep,islem, aciklama);
+                        alertDialog.cancel();
+                    } else {
+                        if (message.getText().toString().isEmpty()) {
+                            // message.setError("Açıklama Alanı Zorunludur.");
+                            //  YoYo.with(Techniques.Shake).duration(500).playOn(message);
+                            String aciklama = "Açıklama Eklenmedi!";
+                            updateTalep(talep,islem, aciklama);
+                            alertDialog.cancel();
+
+                        } else {
+                            YoYo.with(Techniques.Shake).duration(500).playOn(message);
+                        }
+
+
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+
+            }
+        });
+
+
+        alertDialog.show();
+
+    }
+    public void talebiSil(Talep talep) {
+        RequestBody requestBody = new RequestBody();
+        requestBody.setUserId(talep.getId());
+
+        Call<Talep> call = Db.getConnect().talebiSil(requestBody);
+        call.enqueue(new Callback<Talep>() {
+            @Override
+            public void onResponse(Call<Talep> call, Response<Talep> response) {
+
+                Log.e("sil", "" + response.code());
+                if (response.code() == 200) {
+                    Toast.makeText(TalepYonetimi.this, "Talep Silindi", Toast.LENGTH_LONG).show();
+
+                    startActivity(new Intent(TalepYonetimi.this, TalepYonetimi.class));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Talep> call, Throwable t) {
+                Log.e("fail", t.getMessage());
+            }
+        });
+
+    }
+
+
+
 
 }

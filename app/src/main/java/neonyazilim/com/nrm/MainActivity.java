@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import neonyazilim.com.nrm.Activitys.LoginActivity;
 import neonyazilim.com.nrm.Activitys.ProjeEkle;
 import neonyazilim.com.nrm.Activitys.TalepOlustur;
 import neonyazilim.com.nrm.Activitys.TalepYonetimi;
+import neonyazilim.com.nrm.Activitys.Taleplerim;
 import neonyazilim.com.nrm.Activitys.UnvanEkle;
 import neonyazilim.com.nrm.Adapters.TalepAdapter;
 import neonyazilim.com.nrm.Fragments.Home.MainFragment;
@@ -60,14 +62,22 @@ public class MainActivity extends AppCompatActivity
         preferences = getSharedPreferences("user", MODE_PRIVATE);
         editor = preferences.edit();
 
-        if (getSharedPreferences("user", MODE_PRIVATE).getString("userId",null)!=null){
-            S.userId=getSharedPreferences("user", MODE_PRIVATE).getString("userId",null);
-            S.userToken=getSharedPreferences("user", MODE_PRIVATE).getString("token",null);
+        if (getSharedPreferences("user", MODE_PRIVATE).getString("userId", null) != null) {
+            S.userId = getSharedPreferences("user", MODE_PRIVATE).getString("userId", null);
+            S.userToken = getSharedPreferences("user", MODE_PRIVATE).getString("token", null);
         }
 
         MainFragment mainFragment = new MainFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // transaction.remove(mainFragment);
+        try {
+            if (getIntent().getExtras().getString("action").equals("1")) {
+                mainFragment.changeTab();
+                // Toast.makeText(this,"true",Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e("hata", e.getMessage());
+        }
         transaction.replace(R.id.content_main, mainFragment);
         transaction.attach(mainFragment);
         transaction.setAllowOptimization(true);
@@ -118,8 +128,6 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return true;
     }
 
@@ -134,9 +142,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_giris) {
-            if (S.userId.equals("null")){
+            if (S.userId.equals("null")) {
                 startActivity(new Intent(this, LoginActivity.class));
-            }else {
+            } else {
                 logout();
             }
 
@@ -152,20 +160,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_home) {
-            recreate();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_add_project) {
             startActivity(new Intent(this, ProjeEkle.class));
         } else if (id == R.id.action_add_request) {
             startActivity(new Intent(this, TalepOlustur.class));
         } else if (id == R.id.action_add_user) {
             startActivity(new Intent(this, KullaniciEkle.class));
-        }else if (id==R.id.action_list_request){
+        } else if (id == R.id.action_list_request) {
             startActivity(new Intent(MainActivity.this, TalepYonetimi.class));
         } else if (id == R.id.action_add_department) {
             startActivity(new Intent(this, DepartmanEkle.class));
         } else if (id == R.id.action_add_unvan) {
             startActivity(new Intent(this, UnvanEkle.class));
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.action_taleplerim) {
+            startActivity(new Intent(this, Taleplerim.class));
+        }else if (id == R.id.nav_send) {
 
         }
 
@@ -174,24 +185,24 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void logout(){
-        Log.e("logout","logout()");
-        RequestBody requestBody = new RequestBody(S.userId,S.userToken);
+    private void logout() {
+        Log.e("logout", "logout()");
+        RequestBody requestBody = new RequestBody(S.userId, S.userToken);
         Call<UserResponse> call = Db.getConnect().logout(requestBody);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                if (response.code()==200){
-                    Log.e("logout","logout()1");
-                    if (!response.body().isLogin()){
+                if (response.code() == 200) {
+                    Log.e("logout", "logout()1");
+                    if (!response.body().isLogin()) {
                         // Çıkış Başarılı
-                        Log.e("logout","responso()"+response.code());
-                        S.userId="null";
-                        S.userToken="13224btfrtdefgdrttg";
+                        Log.e("logout", "responso()" + response.code());
+                        S.userId = "null";
+                        S.userToken = "13224btfrtdefgdrttg";
                         editor.remove("userId");
                         editor.remove("token");
                         editor.commit();
-                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
                     }
                 }
@@ -199,7 +210,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Log.e("logout","logout()"+t.getMessage());
+                Log.e("logout", "logout()" + t.getMessage());
             }
         });
     }

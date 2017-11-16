@@ -64,7 +64,10 @@
         <activity android:name=".Activitys.AddGorev" />
         <activity android:name=".Activitys.GorevDetay" />
         <activity android:name=".Activitys.TalepYonetimi" />
-        <activity android:name=".Activitys.ProjeYonetimi"></activity>
+        <activity android:name=".Activitys.ProjeYonetimi" />
+        <activity
+            android:name=".Activitys.Taleplerim"
+            android:label="@string/title_activity_taleplerim"></activity>
     </application>
 
 </manifest>

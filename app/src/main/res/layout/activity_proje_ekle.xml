@@ -72,45 +72,47 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="Departman:"
+                    android:text="Departman Ekle:"
                     android:textColor="@color/colorAccent" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/deparman_root"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
 
                     <Spinner
-                        android:background="@drawable/ic_spinner_back"
                         android:id="@+id/sp_departman"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical" />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_weight="0.95"
+                    android:orientation="vertical">
 
                     <Button
-                        android:layout_margin="5dp"
-                        android:layout_gravity="center"
                         android:id="@+id/add_departman"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/ic_add_circle" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="7dp"
+                        android:background="@drawable/ekle_back"
+                        android:text="Ekle"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -156,41 +158,41 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/deparman_root"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_weight="0.4"
+                        android:orientation="vertical">
 
                         <Spinner
                             android:id="@+id/sp_sorumlu"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:background="@drawable/ic_spinner_back" />
+                            android:layout_height="match_parent" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_weight="0.95"
+                        android:orientation="vertical">
 
                         <Button
-                            android:layout_margin="5dp"
                             android:id="@+id/bt_sorumlu_ekle"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_add_circle" />
+                            android:layout_margin="7dp"
+                            android:background="@drawable/ekle_back"
+                            android:text="Ekle"
+                            android:textColor="@android:color/white" />
                     </LinearLayout>
-
 
                 </LinearLayout>
 
