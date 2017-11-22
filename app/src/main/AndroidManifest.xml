@@ -67,7 +67,11 @@
         <activity android:name=".Activitys.ProjeYonetimi" />
         <activity
             android:name=".Activitys.Taleplerim"
-            android:label="@string/title_activity_taleplerim"></activity>
+            android:label="@string/title_activity_taleplerim" />
+        <activity android:name=".Activitys.Gorevlerim" />
+        <activity android:name=".Activitys.IzinYonetimi" />
+        <activity android:name=".Activitys.IzinEkle" />
+        <activity android:name=".Activitys.IzinDetay"></activity>
     </application>
 
 </manifest>

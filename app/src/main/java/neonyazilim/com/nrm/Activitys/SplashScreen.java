@@ -5,7 +5,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.gson.Gson;
+
 import neonyazilim.com.nrm.MainActivity;
+import neonyazilim.com.nrm.Models.Kullanici;
 import neonyazilim.com.nrm.R;
 import neonyazilim.com.nrm.S;
 
@@ -19,6 +22,12 @@ public class SplashScreen extends AppCompatActivity {
         if (getSharedPreferences("user", MODE_PRIVATE).getString("userId",null)!=null){
             S.userId=getSharedPreferences("user", MODE_PRIVATE).getString("userId",null);
             S.userToken=getSharedPreferences("user", MODE_PRIVATE).getString("token",null);
+            String stringKll = getSharedPreferences("user",MODE_PRIVATE).getString("kullanici",null);
+    
+            if (stringKll!=null){
+                S.kullanici =new Gson().fromJson(stringKll, Kullanici.class);
+            }
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

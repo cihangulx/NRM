@@ -1,5 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 import java.util.List;
 
@@ -110,4 +112,9 @@ public class Talep {
         this.tarih = tarih;
     }
 
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

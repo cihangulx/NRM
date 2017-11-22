@@ -4,6 +4,7 @@ import java.util.List;
 
 import neonyazilim.com.nrm.Models.Departman;
 import neonyazilim.com.nrm.Models.Gorev;
+import neonyazilim.com.nrm.Models.Izin;
 import neonyazilim.com.nrm.Models.Kullanici;
 import neonyazilim.com.nrm.Models.Proje;
 import neonyazilim.com.nrm.Models.RequestBody;
@@ -100,6 +101,9 @@ public interface Connect {
     @POST("getUserss" + S.publickey)
     Call<Kullanici> getUserss(@Body RequestBody departman);
 
+    @POST("getUsersss" + S.publickey)
+    Call<Kullanici> getUsersss(@Body RequestBody departman);
+
     @POST("sendProject" + S.publickey)
     Call<Proje> sendProject(@Body Proje proje);
 
@@ -108,6 +112,9 @@ public interface Connect {
 
     @POST("getGorevler" + S.publickey)
     Call<List<Gorev>> getGorevler(@Body RequestBody requestBody);
+
+    @POST("getGorevlerim" + S.publickey)
+    Call<List<Gorev>> getGorevlerim(@Body RequestBody requestBody);
 
     @POST("getGorevliler" + S.publickey)
     Call<List<Kullanici>> getGorevliler(@Body RequestBody requestBody);
@@ -121,13 +128,23 @@ public interface Connect {
     @POST("talebiSil" + S.publickey)
     Call<Talep> talebiSil(@Body RequestBody requestBody);
 
-    @POST("projeyiGuncelle"+S.publickey)
+    @POST("projeyiGuncelle" + S.publickey)
     Call<Proje> projeyiGuncelle(@Body Proje proje);
 
-    @POST("projeyeDepartmanEkle"+S.publickey)
+    @POST("projeyeDepartmanEkle" + S.publickey)
     Call<Proje> projeyeDepartmanEkle(@Body RequestBody requestBody);
 
-    @POST("projeyeSorumluEkle"+S.publickey)
+    @POST("projeyeSorumluEkle" + S.publickey)
     Call<Proje> projeyeSorumluEkle(@Body RequestBody requestBody);
+
+    @POST("getFilteredTalep" + S.publickey)
+    Call<List<Talep>> getFilteredTalep(@Body RequestBody requestBody);
+
+
+    @POST("sendIzin" + S.publickey)
+    Call<Izin> sendIzin(@Body RequestBody requestBody);
+
+    @POST("getIzin" + S.publickey)
+    Call<List<Izin>> getIzin(@Body RequestBody requestBody);
 
 }

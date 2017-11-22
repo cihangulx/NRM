@@ -107,6 +107,10 @@ public class TalepDetay extends AppCompatActivity {
         //Picasso.with(this).load(talep.getAlici()).into(talepGonderenResim);
 //        talep_gonderen.setText(talep.getGonderen());
 
+        if (!S.kullanici.isTalepSilebilir()){
+            MenuItem menuItem =bottomNavigationView.getMenu().getItem(4);
+            bottomNavigationView.getMenu().removeItem(R.id.action_delete);
+        }
 
         bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
@@ -284,6 +288,10 @@ public class TalepDetay extends AppCompatActivity {
     }
 
     private void talebiSil() {
+        if (!S.kullanici.isTalepSilebilir()){
+            Toast.makeText(this,"Talep Silme Yetkiniz Bulunmuyor.",Toast.LENGTH_LONG).show();
+        return;
+        }
         RequestBody requestBody = new RequestBody();
         requestBody.setUserId(talep.getId());
 

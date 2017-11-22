@@ -27,6 +27,9 @@ import java.util.List;
 
 import neonyazilim.com.nrm.Activitys.DepartmanEkle;
 import neonyazilim.com.nrm.Activitys.GorevEkle;
+import neonyazilim.com.nrm.Activitys.Gorevlerim;
+import neonyazilim.com.nrm.Activitys.IzinEkle;
+import neonyazilim.com.nrm.Activitys.IzinYonetimi;
 import neonyazilim.com.nrm.Activitys.KullaniciEkle;
 import neonyazilim.com.nrm.Activitys.LoginActivity;
 import neonyazilim.com.nrm.Activitys.ProjeEkle;
@@ -67,13 +70,18 @@ public class MainActivity extends AppCompatActivity
             S.userToken = getSharedPreferences("user", MODE_PRIVATE).getString("token", null);
         }
 
+        if (S.kullanici != null) {
+            //  Toast.makeText(this,S.kullanici.getIsim(),Toast.LENGTH_SHORT).show();
+        }
+
+
         MainFragment mainFragment = new MainFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // transaction.remove(mainFragment);
         try {
             if (getIntent().getExtras().getString("action").equals("1")) {
                 mainFragment.changeTab();
-                // Toast.makeText(this,"true",Toast.LENGTH_SHORT).show();
+                //
             }
         } catch (Exception e) {
             Log.e("hata", e.getMessage());
@@ -88,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TalepYonetimi.class));
+                startActivity(new Intent(MainActivity.this, IzinYonetimi.class));
             }
         });
 
@@ -108,6 +116,10 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if (S.userId != null) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
             super.onBackPressed();
         }
     }
@@ -169,14 +181,16 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.action_add_user) {
             startActivity(new Intent(this, KullaniciEkle.class));
         } else if (id == R.id.action_list_request) {
-            startActivity(new Intent(MainActivity.this, TalepYonetimi.class));
+            startActivity(new Intent(MainActivity.this, Gorevlerim.class));
         } else if (id == R.id.action_add_department) {
             startActivity(new Intent(this, DepartmanEkle.class));
         } else if (id == R.id.action_add_unvan) {
             startActivity(new Intent(this, UnvanEkle.class));
         } else if (id == R.id.action_taleplerim) {
             startActivity(new Intent(this, Taleplerim.class));
-        }else if (id == R.id.nav_send) {
+        } else if (id == R.id.action_add_izin) {
+            startActivity(new Intent(this, IzinEkle.class));
+        } else if (id == R.id.nav_send) {
 
         }
 
@@ -214,5 +228,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
 
 }

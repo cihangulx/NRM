@@ -20,7 +20,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import neonyazilim.com.nrm.Models.Islem;
+import neonyazilim.com.nrm.Models.Kullanici;
+import neonyazilim.com.nrm.Models.RequestBody;
+import neonyazilim.com.nrm.Network.Db;
 import neonyazilim.com.nrm.R;
+import neonyazilim.com.nrm.S;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by tuzlabim on 13.11.2017.
@@ -84,8 +91,8 @@ public class IslemAdapter extends BaseAdapter {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int hour =calendar.get(Calendar.HOUR);
-        int minute =calendar.get(Calendar.MINUTE);
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
 
 
         Date date = new Date();
@@ -95,16 +102,16 @@ public class IslemAdapter extends BaseAdapter {
         int day1 = calendar1.get(Calendar.DAY_OF_MONTH);
 
 
-        if (day1!=day){
+        if (day1 != day) {
             tarih.setText("" + day + "/" + (month) + "/" + year);
-        }else {
-            tarih.setText(hour+":"+minute);
+        } else {
+            tarih.setText(hour + ":" + minute);
         }
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(islem.getIslemAciklamasi());
+                showDialog(islem);
             }
         });
 
@@ -112,10 +119,18 @@ public class IslemAdapter extends BaseAdapter {
         return view;
     }
 
-    private void showDialog(String aciklama){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-        dialog.setTitle("İşlem Açıklaması");
-        dialog.setMessage(aciklama);
+    private void showDialog(final Islem islem) {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+        dialog.setTitle("İşlem Detayı");
+        dialog.setMessage("Açıklama: " + islem.getIslemAciklamasi() + "\n" +
+                "İşlemi Yapan: " + "Cihan Gül" + "\n" +
+                "İşlem Tarihi/Saati: " + islem.getIslemTarihi().toString()
+
+        );
+
+
+
+
         dialog.setCancelable(true);
         dialog.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
             @Override
@@ -127,5 +142,6 @@ public class IslemAdapter extends BaseAdapter {
         dialog.create().show();
 
     }
+
 
 }

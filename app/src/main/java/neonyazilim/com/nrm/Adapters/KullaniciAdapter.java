@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import neonyazilim.com.nrm.Activitys.IzinEkle;
 import neonyazilim.com.nrm.Models.Departman;
 import neonyazilim.com.nrm.Models.Kullanici;
 import neonyazilim.com.nrm.R;
@@ -57,7 +58,12 @@ public class KullaniciAdapter extends BaseAdapter {
         TextView baslik = view.findViewById(R.id.baslik);
         TextView unvan =view.findViewById(R.id.unvan);
         baslik.setText(kullaniciList.get(position).getIsim()+" "+kullaniciList.get(position).getSoyIsim());
-        unvan.setText(kullaniciList.get(position).getUnvan());
+        if (activity instanceof IzinEkle){
+           // unvan.setText(kullaniciList.get(position).getUnvan());
+        }else {
+            unvan.setText(kullaniciList.get(position).getUnvan());
+        }
+
 
 
 

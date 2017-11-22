@@ -1,5 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +45,14 @@ public class Proje {
 
     public String getId() {
         return _id;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public void setId(String id) {
@@ -135,5 +145,11 @@ public class Proje {
 
     public void setSorumluList(List<Kullanici> sorumluList) {
         this.sorumluList = sorumluList;
+    }
+
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

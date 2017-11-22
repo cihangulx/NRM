@@ -151,7 +151,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     S.userId=response.body().getId();
                     S.userToken=response.body().getToken();
+                    S.kullanici=response.body();
 
+                    editor.putString("kullanici",response.body().toString());
                     editor.putString("userId",response.body().getId());
                     editor.putString("token",response.body().getToken());
                     editor.commit();

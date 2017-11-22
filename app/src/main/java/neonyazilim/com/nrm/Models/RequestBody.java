@@ -10,8 +10,10 @@ public class RequestBody {
     private String _id;
     private String token;
     private String durum;
-
+    private String [] filtreler;
     private List<Islem> islem;
+    private Izin izin;
+    private ProjeIzin projeIzin;
 
     private String [] departmanList;
 
@@ -21,6 +23,22 @@ public class RequestBody {
     }
 
     public RequestBody() {
+    }
+
+    public String[] getFiltreler() {
+        return filtreler;
+    }
+
+    public ProjeIzin getProjeIzin() {
+        return projeIzin;
+    }
+
+    public void setProjeIzin(ProjeIzin projeIzin) {
+        this.projeIzin = projeIzin;
+    }
+
+    public void setFiltreler(String[] filtreler) {
+        this.filtreler = filtreler;
     }
 
     public List<Islem> getIslem() {
@@ -61,5 +79,13 @@ public class RequestBody {
 
     public void setDepartmanList(String[] departmanList) {
         this.departmanList = departmanList;
+    }
+
+    public Izin getIzin() {
+        return izin;
+    }
+
+    public void setIzin(Izin izin) {
+        this.izin = izin;
     }
 }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.Date;
 import java.util.List;
 
+import neonyazilim.com.nrm.Adapters.DepartmanAdapter;
 import neonyazilim.com.nrm.Adapters.KullaniciAdapter;
 import neonyazilim.com.nrm.MainActivity;
 import neonyazilim.com.nrm.Models.Departman;
@@ -93,13 +94,9 @@ public class TalepOlustur extends AppCompatActivity {
             public void onResponse(Call<List<Departman>> call, final Response<List<Departman>> response) {
                 if (response.code() == 200) {
 
-                    String[] departman_baslik_list = new String[response.body().size()];
-                    for (int i = 0; i < response.body().size(); i++) {
-                        departman_baslik_list[i] = response.body().get(i).getBaslik();
-                    }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(TalepOlustur.this, android.R.layout.simple_dropdown_item_1line, departman_baslik_list);
+                    DepartmanAdapter departmanAdapter = new DepartmanAdapter(TalepOlustur.this,response.body());
 
-                    sp_departman.setAdapter(arrayAdapter);
+                    sp_departman.setAdapter(departmanAdapter);
 
                     sp_departman.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -165,7 +162,7 @@ public class TalepOlustur extends AppCompatActivity {
         talep.setGonderen(S.userId);
         talep.setAlici(kullanici.getId());
         talep.setTarih(new Date());
-        talep.setDepartman(sp_departman.getSelectedItem().toString());
+        talep.setDepartman(((Departman) sp_departman.getSelectedItem()).getId());
 
         Call<Talep> call = Db.getConnect().talepGonder(talep);
         call.enqueue(new Callback<Talep>() {

@@ -1,5 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
+import com.google.gson.Gson;
+
 /**
  * Created by cihan on 24.10.2017.
  */
@@ -316,5 +318,10 @@ public class Kullanici {
     public Kullanici setSuperVisor(boolean superVisor) {
         this.superVisor = superVisor;
         return this;
+    }
+
+    @Override
+    public String toString() {
+       return  new Gson().toJson(this);
     }
 }
