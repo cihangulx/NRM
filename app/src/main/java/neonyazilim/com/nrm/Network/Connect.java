@@ -7,6 +7,7 @@ import neonyazilim.com.nrm.Models.Gorev;
 import neonyazilim.com.nrm.Models.Izin;
 import neonyazilim.com.nrm.Models.Kullanici;
 import neonyazilim.com.nrm.Models.Proje;
+import neonyazilim.com.nrm.Models.ProjeIzin;
 import neonyazilim.com.nrm.Models.RequestBody;
 import neonyazilim.com.nrm.Models.Talep;
 import neonyazilim.com.nrm.Models.Unvan;
@@ -146,5 +147,9 @@ public interface Connect {
 
     @POST("getIzin" + S.publickey)
     Call<List<Izin>> getIzin(@Body RequestBody requestBody);
+
+
+    @POST("getProjeIzin"+S.publickey)
+    Call<List<ProjeIzin>> getProjeIzin(@Body RequestBody requestBody);
 
 }

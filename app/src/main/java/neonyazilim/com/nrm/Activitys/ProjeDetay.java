@@ -336,10 +336,8 @@ public class ProjeDetay extends AppCompatActivity {
                     } else {
                         durum.setText("Durum: " + "Görev Eklenmesi Bekleniyor");
                     }
-
                 }
             }
-
             @Override
             public void onFailure(Call<List<Gorev>> call, Throwable t) {
                 Log.e("fail", t.getMessage());

@@ -1,5 +1,7 @@
 package neonyazilim.com.nrm.Models;
 
+import com.google.gson.Gson;
+
 /**
  * Created by cihan on 20.11.2017.
  */
@@ -118,5 +120,10 @@ public class ProjeIzin {
 
     public void setGorevSil(boolean gorevSil) {
         this.gorevSil = gorevSil;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

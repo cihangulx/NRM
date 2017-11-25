@@ -35,7 +35,7 @@ public class KullaniciIzinAdapter extends BaseAdapter {
     public KullaniciIzinAdapter(Activity activity, List<Kullanici> kullaniciList) {
         this.activity = activity;
         this.kullaniciList = kullaniciList;
-        layoutInflater= (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -53,13 +53,13 @@ public class KullaniciIzinAdapter extends BaseAdapter {
         return position;
     }
 
-    public String getKullaniciId(int position){
+    public String getKullaniciId(int position) {
         return kullaniciList.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = layoutInflater.inflate(R.layout.kullanici_izin_view,parent,false);
+        View view = layoutInflater.inflate(R.layout.kullanici_izin_view, parent, false);
 
 
         TextView isim = view.findViewById(R.id.isim);
@@ -74,41 +74,25 @@ public class KullaniciIzinAdapter extends BaseAdapter {
         projeIzin.setUserId(kullanici.getId());
         requestBody.setProjeIzin(projeIzin);
 
-        Call<List<Izin>> call = Db.getConnect().getIzin(requestBody);
-
-        call.enqueue(new Callback<List<Izin>>() {
+        Call<List<ProjeIzin>> call = Db.getConnect().getProjeIzin(requestBody);
+        call.enqueue(new Callback<List<ProjeIzin>>() {
             @Override
-            public void onResponse(Call<List<Izin>> call, Response<List<Izin>> response) {
-                if (response.code()==200){
-                    int izinSayisi  = getIzinSayisi(response.body(),kullanici.getId());
-                    izin.setText(""+izinSayisi+ " izin");
+            public void onResponse(Call<List<ProjeIzin>> call, Response<List<ProjeIzin>> response) {
+                if (response.code() == 200) {
+                    izin.setText("" + response.body().size() + " Proje İzini\n");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Izin>> call, Throwable t) {
-
+            public void onFailure(Call<List<ProjeIzin>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
 
-
-        isim.setText(kullanici.getIsim()+" "+kullanici.getSoyIsim());
+        isim.setText(kullanici.getIsim() + " " + kullanici.getSoyIsim());
         unvan.setText(kullanici.getUnvan());
-
-
 
 
         return view;
     }
-
-
-    public int getIzinSayisi(List<Izin> izins,String userId){
-        for (int i=0;i<izins.size();i++){
-            if (izins.get(i).getUserId().equals(userId)){
-                return izins.get(i).getProjeIzinList().size();
-            }
-        }
-        return 0;
-    }
-
 }

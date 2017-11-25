@@ -2,6 +2,8 @@ package neonyazilim.com.nrm.Models;
 
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 /**
  * Created by cihan on 24.10.2017.
  */
@@ -309,6 +311,7 @@ public class Kullanici {
     public Kullanici setDepartmanSilebilir(boolean departmanSilebilir) {
         this.departmanSilebilir = departmanSilebilir;
         return this;
+
     }
 
     public boolean isSuperVisor() {

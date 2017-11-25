@@ -47,10 +47,14 @@ public class Gorevlerim extends AppCompatActivity {
         call.enqueue(new Callback<List<Gorev>>() {
             @Override
             public void onResponse(Call<List<Gorev>> call, Response<List<Gorev>> response) {
+
+
                 Log.e("code:", "" + response.code());
                 if (response.code() == 200) {
                     if (response.body().size() > 0) {
                         Log.e("res", response.body().get(0).getBaslik());
+
+
 
                         GorevAdapter gorevAdapter = new GorevAdapter(Gorevlerim.this, response.body(), new Proje());
                         gorevler_list_view.setAdapter(gorevAdapter);
